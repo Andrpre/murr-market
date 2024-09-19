@@ -1,6 +1,5 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { CartItem, Product } from '../utils/types';
-import { RootState } from '../services/store';
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { CartItem, Product } from "../utils/types";
 
 interface CartState {
   items: CartItem[];
@@ -13,11 +12,13 @@ const initialState: CartState = {
 };
 
 export const cartSlice = createSlice({
-  name: 'cart',
+  name: "cart",
   initialState,
   reducers: {
     addItemToCart: (state, action: PayloadAction<Product>) => {
-      const existingItem = state.items.find(item => item.id === action.payload.id);
+      const existingItem = state.items.find(
+        (item) => item.id === action.payload.id
+      );
       if (existingItem) {
         existingItem.quantity += 1;
       } else {
@@ -26,7 +27,9 @@ export const cartSlice = createSlice({
       state.totalAmount += action.payload.price;
     },
     removeItemFromCart: (state, action: PayloadAction<number>) => {
-      const itemIndex = state.items.findIndex(item => item.id === action.payload);
+      const itemIndex = state.items.findIndex(
+        (item) => item.id === action.payload
+      );
       if (itemIndex !== -1) {
         const item = state.items[itemIndex];
         state.totalAmount -= item.price;
@@ -38,11 +41,14 @@ export const cartSlice = createSlice({
       }
     },
   },
+  selectors: {
+    selectCartItems: (sliceState: CartState) => sliceState.items,
+    selectTotalAmount: (sliceState: CartState) => sliceState.totalAmount,
+    selectTotalQuantity: (sliceState: CartState) =>
+      sliceState.items.reduce((total, item) => total + item.quantity, 0),
+  },
 });
 
 export const { addItemToCart, removeItemFromCart } = cartSlice.actions;
-export const selectCartItems = (state: RootState) => state.cart.items;
-export const selectTotalAmount = (state: RootState) => state.cart.totalAmount;
-// Селектор для подсчёта общего количества единиц товара в корзине
-export const selectTotalQuantity = (state: RootState) => 
-  state.cart.items.reduce((total, item) => total + item.quantity, 0);
+export const { selectCartItems, selectTotalAmount, selectTotalQuantity } =
+  cartSlice.selectors;
