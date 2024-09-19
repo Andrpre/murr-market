@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { RootState } from '../../app/store'; // Импортируем RootState
-import { Product } from './Product';
+import { RootState } from '../services/store'; // Импортируем RootState
+import { Product } from '../utils/types';
 
 interface ProductsState {
   products: Product[];
@@ -25,7 +25,7 @@ const initialState: ProductsState = {
   ],
 };
 
-const productsSlice = createSlice({
+export const productsSlice = createSlice({
   name: 'products',
   initialState,
   reducers: {},
@@ -35,5 +35,3 @@ const productsSlice = createSlice({
 export const selectProducts = (state: RootState) => state.products.products;
 export const selectProductById = (state: RootState, id: number) =>
   state.products.products.find((product) => product.id === id);
-
-export default productsSlice.reducer;

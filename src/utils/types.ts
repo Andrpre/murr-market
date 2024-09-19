@@ -6,3 +6,6 @@ export interface Product {
     description: string;
   }
   
+export interface CartItem extends Product {
+  quantity: number;
+}

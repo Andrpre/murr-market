@@ -1,20 +1,28 @@
-import React from 'react';
-import { useAppSelector } from '../app/hooks';
-import { selectCartItems, selectTotalAmount } from '../features/cart/cartSlice';
-import CartItemComponent from '../components/CartItem';
+import React from "react";
+import { useSelector } from "../services/hooks";
+import { selectCartItems, selectTotalAmount } from "../slices/cartSlice";
+import { CartItemComponent } from "../components/cart-item";
+import { Empty, Typography } from "antd";
+import { Link } from "react-router-dom";
 
 const CartPage: React.FC = () => {
-  const cartItems = useAppSelector(selectCartItems);
-  const totalAmount = useAppSelector(selectTotalAmount);
+  const cartItems = useSelector(selectCartItems);
+  const totalAmount = useSelector(selectTotalAmount);
 
   return (
     <div>
       <h2>Корзина</h2>
       {cartItems.length === 0 ? (
-        <p>Корзина пуста</p>
+        <Empty
+          description={
+            <Typography.Text>
+              Корзина пуста, <Link to="/">вернуться на главную</Link>
+            </Typography.Text>
+          }
+        />
       ) : (
         <div>
-          {cartItems.map(item => (
+          {cartItems.map((item) => (
             <CartItemComponent key={item.id} item={item} />
           ))}
           <h3>Итого: {totalAmount} руб.</h3>

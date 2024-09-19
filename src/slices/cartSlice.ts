@@ -1,10 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Product } from '../products/Product';
-import { RootState } from '../../app/store';
-
-export interface CartItem extends Product {
-  quantity: number;
-}
+import { CartItem, Product } from '../utils/types';
+import { RootState } from '../services/store';
 
 interface CartState {
   items: CartItem[];
@@ -16,7 +12,7 @@ const initialState: CartState = {
   totalAmount: 0,
 };
 
-const cartSlice = createSlice({
+export const cartSlice = createSlice({
   name: 'cart',
   initialState,
   reducers: {
@@ -47,5 +43,6 @@ const cartSlice = createSlice({
 export const { addItemToCart, removeItemFromCart } = cartSlice.actions;
 export const selectCartItems = (state: RootState) => state.cart.items;
 export const selectTotalAmount = (state: RootState) => state.cart.totalAmount;
-
-export default cartSlice.reducer;
+// Селектор для подсчёта общего количества единиц товара в корзине
+export const selectTotalQuantity = (state: RootState) => 
+  state.cart.items.reduce((total, item) => total + item.quantity, 0);

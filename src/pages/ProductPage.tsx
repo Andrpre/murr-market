@@ -1,15 +1,15 @@
 import React from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { useAppSelector, useAppDispatch } from '../app/hooks';
-import { selectProductById } from '../features/products/productsSlice';
-import { addItemToCart } from '../features/cart/cartSlice';
-import { Button } from 'antd';
+import { useSelector, useDispatch } from '../services/hooks';
+import { selectProductById } from '../slices/productsSlice';
+import { addItemToCart } from '../slices/cartSlice';
+import { Breadcrumb, Button } from 'antd';
 
 const ProductPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const productId = Number(id);
-  const product = useAppSelector(state => selectProductById(state, productId));
-  const dispatch = useAppDispatch();
+  const product = useSelector(state => selectProductById(state, productId));
+  const dispatch = useDispatch();
 
   if (!product) {
     return <p>Товар не найден</p>;
@@ -17,6 +17,16 @@ const ProductPage: React.FC = () => {
 
   return (
     <div>
+    <Breadcrumb
+      items={[
+        {
+          title: <Link to="/">Главная</Link>,
+        },
+        {
+          title: product.name,
+        },
+      ]}
+    />
       <h2>{product.name}</h2>
       <img src={product.image} alt={product.name} style={{ maxWidth: '300px' }} />
       <p>{product.description}</p>
@@ -24,7 +34,6 @@ const ProductPage: React.FC = () => {
       <Button type="primary" onClick={() => dispatch(addItemToCart(product))}>
         Добавить в корзину
       </Button>
-      <Link to="/cart">To cart</Link>
     </div>
   );
 };
