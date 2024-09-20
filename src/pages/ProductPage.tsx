@@ -1,14 +1,16 @@
-import React from 'react';
-import { Link, useParams } from 'react-router-dom';
-import { useSelector } from '../services/hooks';
-import { selectProductById } from '../slices/productsSlice';
-import { Breadcrumb } from 'antd';
-import { CartCounter } from '../components/cart-counter';
+import React from "react";
+import { Link, useParams } from "react-router-dom";
+import { useSelector } from "../services/hooks";
+import { selectProductById } from "../slices/productsSlice";
+import { Breadcrumb } from "antd";
+import { CartCounter } from "../components/cart-counter";
+import { WishlistButton } from "../components/wishlist-button";
 
 const ProductPage: React.FC = () => {
+
   const { id } = useParams<{ id: string }>();
   const productId = Number(id);
-  const product = useSelector(state => selectProductById(state, productId));
+  const product = useSelector((state) => selectProductById(state, productId));
 
   if (!product) {
     return <p>Товар не найден</p>;
@@ -16,18 +18,23 @@ const ProductPage: React.FC = () => {
 
   return (
     <div>
-    <Breadcrumb
-      items={[
-        {
-          title: <Link to="/">Главная</Link>,
-        },
-        {
-          title: product.name,
-        },
-      ]}
-    />
+      <Breadcrumb
+        items={[
+          {
+            title: <Link to="/">Главная</Link>,
+          },
+          {
+            title: product.name,
+          },
+        ]}
+      />
+      <WishlistButton product={product}/>
       <h2>{product.name}</h2>
-      <img src={product.image} alt={product.name} style={{ maxWidth: '300px' }} />
+      <img
+        src={product.image}
+        alt={product.name}
+        style={{ maxWidth: "300px" }}
+      />
       <p>{product.description}</p>
       <p>Цена: {product.price} руб.</p>
       <CartCounter product={product} />

@@ -6,6 +6,7 @@ import ProductPage from '../../pages/ProductPage';
 import { Layout } from 'antd';
 import { AppHeader } from '../app-header';
 import { Content, Footer } from 'antd/es/layout/layout';
+import { WishlistPage } from '../../pages/WishlistPage';
 
 const App: React.FC = () => {
   return (
@@ -17,6 +18,7 @@ const App: React.FC = () => {
             <Route path="/" element={<HomePage />} />
             <Route path="/cart" element={<CartPage />} />
             <Route path="/products/:id" element={<ProductPage />} />
+            <Route path="/wishlist" element={<WishlistPage />} />
           </Routes>
         </Content>
         <Footer style={{ textAlign: 'center' }}>Murr Market ©2024</Footer>
