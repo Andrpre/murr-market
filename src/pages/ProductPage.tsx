@@ -1,15 +1,14 @@
 import React from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { useSelector, useDispatch } from '../services/hooks';
+import { useSelector } from '../services/hooks';
 import { selectProductById } from '../slices/productsSlice';
-import { addItemToCart } from '../slices/cartSlice';
-import { Breadcrumb, Button } from 'antd';
+import { Breadcrumb } from 'antd';
+import { CartCounter } from '../components/cart-counter';
 
 const ProductPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const productId = Number(id);
   const product = useSelector(state => selectProductById(state, productId));
-  const dispatch = useDispatch();
 
   if (!product) {
     return <p>Товар не найден</p>;
@@ -31,9 +30,7 @@ const ProductPage: React.FC = () => {
       <img src={product.image} alt={product.name} style={{ maxWidth: '300px' }} />
       <p>{product.description}</p>
       <p>Цена: {product.price} руб.</p>
-      <Button type="primary" onClick={() => dispatch(addItemToCart(product))}>
-        Добавить в корзину
-      </Button>
+      <CartCounter product={product} />
     </div>
   );
 };

@@ -3,7 +3,7 @@ import { Badge, Button, Flex, Layout } from "antd";
 import { Link } from "react-router-dom";
 import { useSelector } from "../../services/hooks";
 import { selectTotalQuantity } from "../../slices/cartSlice";
-import { ShoppingFilled } from "@ant-design/icons";
+import LocalMallRoundedIcon from '@mui/icons-material/LocalMallRounded';
 
 const { Header } = Layout;
 
@@ -28,7 +28,7 @@ export const AppHeader: React.FC = () => {
         <Link to="/">Главная</Link>
         <Badge count={totalQuantity}>
           <Link to="/cart">
-            <Button type="primary" icon={<ShoppingFilled />} size="large" />
+            <Button type="primary" icon={<LocalMallRoundedIcon />} size="large" />
           </Link>
         </Badge>
       </Flex>
