@@ -1,11 +1,17 @@
 import React from 'react';
-import { Row, Col } from 'antd';
+import { Row, Col, Spin } from 'antd';
 import { useSelector } from '../services/hooks';
-import { selectProducts } from '../slices/productsSlice';
+import { getStatusRequest, selectProducts } from '../slices/productsSlice';
 import { ProductCard } from '../components/product-card';
+import { RequestStatus } from '../utils/types';
 
 const HomePage: React.FC = () => {
   const products = useSelector(selectProducts);
+  const statusRequest = useSelector(getStatusRequest);
+
+  if (!products.length || statusRequest === RequestStatus.Loading) {
+    return <Spin size="large" />;
+  }
 
   return (
     <div>

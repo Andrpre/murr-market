@@ -1,27 +1,19 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { Product } from "../utils/types";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { Product, RequestStatus } from "../utils/types";
+import { fetchProducts } from "../utils/api";
 
 interface ProductsState {
   products: Product[];
+  status: RequestStatus;
 }
+export const getProducts = createAsyncThunk<Product[]>(
+  "products/getAll",
+  async () => fetchProducts()
+);
 
 const initialState: ProductsState = {
-  products: [
-    {
-      id: 1,
-      name: "Когтеточка",
-      price: 200,
-      image: "https://via.placeholder.com/150",
-      description: "Отличная когтеточка для вашего кота!",
-    },
-    {
-      id: 2,
-      name: "Мышка",
-      price: 50,
-      image: "https://via.placeholder.com/150",
-      description: "Игрушка мышка для веселья вашего кота!",
-    },
-  ],
+  products: [],
+  status: RequestStatus.Idle,
 };
 
 export const productsSlice = createSlice({
@@ -30,10 +22,27 @@ export const productsSlice = createSlice({
   reducers: {},
   selectors: {
     selectProducts: (sliceState: ProductsState) => sliceState.products,
-    selectProductById: (sliceState: ProductsState, id: number) =>
+    selectProductById: (sliceState: ProductsState, id: string) =>
       sliceState.products.find((product) => product.id === id),
+    getStatusRequest: (sliceState: ProductsState) => sliceState.status,
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(getProducts.pending, (state) => {
+        state.status = RequestStatus.Loading;
+      })
+      .addCase(
+        getProducts.fulfilled,
+        (state, { payload }: PayloadAction<Product[]>) => {
+          state.status = RequestStatus.Success;
+          state.products = payload;
+        }
+      )
+      .addCase(getProducts.rejected, (state) => {
+        state.status = RequestStatus.Failed;
+      });
   },
 });
 
-export const { selectProducts, selectProductById } =
-productsSlice.selectors;
+export const { selectProducts, selectProductById, getStatusRequest } =
+  productsSlice.selectors;

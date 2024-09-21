@@ -26,7 +26,7 @@ export const cartSlice = createSlice({
       }
       state.totalAmount += action.payload.price;
     },
-    removeItemFromCart: (state, action: PayloadAction<number>) => {
+    removeItemFromCart: (state, action: PayloadAction<string>) => {
       const itemIndex = state.items.findIndex(
         (item) => item.id === action.payload
       );

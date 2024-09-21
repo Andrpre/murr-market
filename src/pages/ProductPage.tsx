@@ -9,7 +9,7 @@ import { WishlistButton } from "../components/wishlist-button";
 const ProductPage: React.FC = () => {
 
   const { id } = useParams<{ id: string }>();
-  const productId = Number(id);
+  const productId = String(id);
   const product = useSelector((state) => selectProductById(state, productId));
 
   if (!product) {

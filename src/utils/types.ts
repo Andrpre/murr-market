@@ -1,5 +1,12 @@
+export enum RequestStatus {
+  Idle = 'Idle',
+  Loading = 'Loading',
+  Success = 'Success',
+  Failed = 'Failed'
+}
+
 export interface Product {
-    id: number;
+    id: string;
     name: string;
     price: number;
     image: string;

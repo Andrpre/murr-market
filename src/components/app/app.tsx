@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import HomePage from '../../pages/HomePage';
 import CartPage from '../../pages/CartPage';
@@ -7,8 +7,16 @@ import { Layout } from 'antd';
 import { AppHeader } from '../app-header';
 import { Content, Footer } from 'antd/es/layout/layout';
 import { WishlistPage } from '../../pages/WishlistPage';
+import { useDispatch } from '../../services/hooks';
+import { getProducts } from '../../slices/productsSlice';
 
 const App: React.FC = () => {
+  const dispatch = useDispatch();
+  
+  useEffect(() => {
+    dispatch(getProducts());
+  });
+
   return (
     <Router>
       <Layout>
