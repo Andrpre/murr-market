@@ -1,15 +1,30 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { CartItem, Product } from "../utils/types";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { CartItem, OrderData, Product, RequestStatus } from "../utils/types";
+import { submitOrderToFirestore } from "../utils/api";
 
 interface CartState {
   items: CartItem[];
   totalAmount: number;
+  orderStatus: RequestStatus;
 }
 
 const initialState: CartState = {
   items: [],
   totalAmount: 0,
+  orderStatus: RequestStatus.Idle,
 };
+
+// Thunk для отправки заказа
+export const submitOrder = createAsyncThunk(
+  "cart/submitOrder",
+  async (orderData: OrderData, { rejectWithValue }) => {
+    try {
+      await submitOrderToFirestore(orderData);
+    } catch {
+      return rejectWithValue("Unknown error occurred");
+    }
+  }
+);
 
 export const cartSlice = createSlice({
   name: "cart",
@@ -46,9 +61,28 @@ export const cartSlice = createSlice({
     selectTotalAmount: (sliceState: CartState) => sliceState.totalAmount,
     selectTotalQuantity: (sliceState: CartState) =>
       sliceState.items.reduce((total, item) => total + item.quantity, 0),
+    selectOrderStatus: (sliceState: CartState) => sliceState.orderStatus,
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(submitOrder.pending, (state) => {
+        state.orderStatus = RequestStatus.Loading;
+      })
+      .addCase(submitOrder.fulfilled, (state) => {
+        state.orderStatus = RequestStatus.Success;
+        state.items = [];
+        state.totalAmount = 0;
+      })
+      .addCase(submitOrder.rejected, (state, action) => {
+        state.orderStatus = RequestStatus.Failed;
+      });
   },
 });
 
 export const { addItemToCart, removeItemFromCart } = cartSlice.actions;
-export const { selectCartItems, selectTotalAmount, selectTotalQuantity } =
-  cartSlice.selectors;
+export const {
+  selectCartItems,
+  selectTotalAmount,
+  selectTotalQuantity,
+  selectOrderStatus,
+} = cartSlice.selectors;

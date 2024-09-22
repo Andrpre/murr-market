@@ -2,10 +2,11 @@ import React from "react";
 import { useSelector } from "../services/hooks";
 import { selectCartItems, selectTotalAmount } from "../slices/cartSlice";
 import { CartItemComponent } from "../components/cart-item";
-import { Empty, Typography } from "antd";
-import { Link } from "react-router-dom";
+import { Button, Empty, Typography } from "antd";
+import { Link, useNavigate } from "react-router-dom";
 
 const CartPage: React.FC = () => {
+  const navigate = useNavigate();
   const cartItems = useSelector(selectCartItems);
   const totalAmount = useSelector(selectTotalAmount);
 
@@ -26,6 +27,7 @@ const CartPage: React.FC = () => {
             <CartItemComponent key={item.id} item={item} />
           ))}
           <h3>Итого: {totalAmount} руб.</h3>
+        <Button type="primary" onClick={() => navigate("/checkout")}>Оформить заказ</Button>
         </div>
       )}
     </div>

@@ -9,6 +9,7 @@ import { Content, Footer } from 'antd/es/layout/layout';
 import { WishlistPage } from '../../pages/WishlistPage';
 import { useDispatch } from '../../services/hooks';
 import { getProducts } from '../../slices/productsSlice';
+import CheckoutPage from '../../pages/CheckoutPage';
 
 const App: React.FC = () => {
   const dispatch = useDispatch();
@@ -27,6 +28,7 @@ const App: React.FC = () => {
             <Route path="/cart" element={<CartPage />} />
             <Route path="/products/:id" element={<ProductPage />} />
             <Route path="/wishlist" element={<WishlistPage />} />
+            <Route path="/checkout" element={<CheckoutPage />} />
           </Routes>
         </Content>
         <Footer style={{ textAlign: 'center' }}>Murr Market ©2024</Footer>
