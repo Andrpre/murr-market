@@ -1,19 +1,20 @@
-import React, { useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import HomePage from '../../pages/HomePage';
-import CartPage from '../../pages/CartPage';
-import ProductPage from '../../pages/ProductPage';
-import { Layout } from 'antd';
-import { AppHeader } from '../app-header';
-import { Content, Footer } from 'antd/es/layout/layout';
-import { WishlistPage } from '../../pages/WishlistPage';
-import { useDispatch } from '../../services/hooks';
-import { getProducts } from '../../slices/productsSlice';
-import CheckoutPage from '../../pages/CheckoutPage';
+import React, { useEffect } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import HomePage from "../../pages/HomePage";
+import CartPage from "../../pages/CartPage";
+import ProductPage from "../../pages/ProductPage";
+import { Layout } from "antd";
+import { AppHeader } from "../app-header";
+import { Content, Footer } from "antd/es/layout/layout";
+import { WishlistPage } from "../../pages/WishlistPage";
+import { useDispatch } from "../../services/hooks";
+import { getProducts } from "../../slices/productsSlice";
+import CheckoutPage from "../../pages/CheckoutPage";
+import { ProtectedRoute } from "../ProtectedRoute";
 
 const App: React.FC = () => {
   const dispatch = useDispatch();
-  
+
   useEffect(() => {
     dispatch(getProducts());
   });
@@ -22,16 +23,23 @@ const App: React.FC = () => {
     <Router>
       <Layout>
         <AppHeader />
-        <Content style={{ padding: '0 50px', marginTop: 64 }}>
+        <Content style={{ padding: "0 50px", marginTop: 64 }}>
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/cart" element={<CartPage />} />
             <Route path="/products/:id" element={<ProductPage />} />
             <Route path="/wishlist" element={<WishlistPage />} />
-            <Route path="/checkout" element={<CheckoutPage />} />
+            <Route
+              path="/checkout"
+              element={
+                <ProtectedRoute>
+                  <CheckoutPage />
+                </ProtectedRoute>
+              }
+            />
           </Routes>
         </Content>
-        <Footer style={{ textAlign: 'center' }}>Murr Market ©2024</Footer>
+        <Footer style={{ textAlign: "center" }}>Murr Market ©2024</Footer>
       </Layout>
     </Router>
   );
