@@ -6,7 +6,7 @@ interface WishlistState {
 }
 
 const initialState: WishlistState = {
-  items: [],
+  items: JSON.parse(localStorage.getItem('wishItems') || '[]'), // Загрузка из localStorage
 };
 
 export const wishlistSlice = createSlice({
@@ -17,10 +17,16 @@ export const wishlistSlice = createSlice({
       const itemExists = state.items.find(item => item.id === action.payload.id);
       if (!itemExists) {
         state.items.push(action.payload);
+
+        // Сохраняем избранное в localStorage
+        localStorage.setItem('wishItems', JSON.stringify(state.items));
       }
     },
     removeItemFromWishlist: (state, action: PayloadAction<string>) => {
       state.items = state.items.filter(item => item.id !== action.payload);
+
+      // Сохраняем в localStorage
+      localStorage.setItem('wishItems', JSON.stringify(state.items));
     },
   },
   selectors: {

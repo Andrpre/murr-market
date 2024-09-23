@@ -9,8 +9,8 @@ interface CartState {
 }
 
 const initialState: CartState = {
-  items: [],
-  totalAmount: 0,
+  items: JSON.parse(localStorage.getItem('cartItems') || '[]'), // Загрузка из localStorage
+  totalAmount: JSON.parse(localStorage.getItem('totalAmount') || '0'), // Загрузка суммы из localStorage
   orderStatus: RequestStatus.Idle,
 };
 
@@ -40,6 +40,10 @@ export const cartSlice = createSlice({
         state.items.push({ ...action.payload, quantity: 1 });
       }
       state.totalAmount += action.payload.price;
+
+      // Сохраняем состояние в localStorage после добавления товара
+      localStorage.setItem('cartItems', JSON.stringify(state.items));
+      localStorage.setItem('totalAmount', JSON.stringify(state.totalAmount));
     },
     removeItemFromCart: (state, action: PayloadAction<string>) => {
       const itemIndex = state.items.findIndex(
@@ -54,6 +58,10 @@ export const cartSlice = createSlice({
           item.quantity -= 1;
         }
       }
+      
+      // Сохраняем состояние в localStorage после удаления товара
+      localStorage.setItem('cartItems', JSON.stringify(state.items));
+      localStorage.setItem('totalAmount', JSON.stringify(state.totalAmount));
     },
   },
   selectors: {
