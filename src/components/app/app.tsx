@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import HomePage from "../../pages/HomePage";
 import CartPage from "../../pages/CartPage";
-import ProductPage from "../../pages/ProductPage";
+import ProductPage from "../../pages/product-page/product-page";
 import { Layout } from "antd";
 import { AppHeader } from "../app-header";
 import { Content, Footer } from "antd/es/layout/layout";
@@ -11,6 +11,7 @@ import { useDispatch } from "../../services/hooks";
 import { getProducts } from "../../slices/productsSlice";
 import CheckoutPage from "../../pages/CheckoutPage";
 import { ProtectedRoute } from "../ProtectedRoute";
+import styles from "./style.module.scss";
 
 const App: React.FC = () => {
   const dispatch = useDispatch();
@@ -21,9 +22,9 @@ const App: React.FC = () => {
 
   return (
     <Router>
-      <Layout>
+      <Layout className={styles.layout}>
         <AppHeader />
-        <Content style={{ padding: "0 50px", marginTop: 64 }}>
+        <Content className={styles.main}>
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/cart" element={<CartPage />} />
@@ -39,7 +40,7 @@ const App: React.FC = () => {
             />
           </Routes>
         </Content>
-        <Footer style={{ textAlign: "center" }}>Murr Market ©2024</Footer>
+        <Footer className={styles.footer}>Murr Market ©2024</Footer>
       </Layout>
     </Router>
   );

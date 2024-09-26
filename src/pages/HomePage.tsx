@@ -18,7 +18,7 @@ const HomePage: React.FC = () => {
       <h2>Товары для котиков</h2>
       <Row gutter={[16, 16]}>
         {products.map(product => (
-          <Col key={product.id} xs={24} sm={12} lg={4}>
+          <Col key={product.id} xs={24} sm={12} lg={8}>
             <ProductCard product={product} />
           </Col>
         ))}

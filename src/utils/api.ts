@@ -14,9 +14,27 @@ export const fetchProducts = async (): Promise<Product[]> => {
     return {
       id: doc.id,
       name: data.name || "No name",
-      price: data.price || 0,
-      description: data.description || "No description",
-      image: data.image || "",
+      price:
+        {
+          current: data.price.current || 0,
+          old: data.price.old || 0,
+        } || {},
+      description:
+        {
+          main: data.description.main || "No description",
+          advantages: data.description.advantages || "No advantages",
+          usage: data.description.usage || "No usage",
+        } || {},
+      image:
+        {
+          url:
+            {
+              main: data.image.url.main || "No foto",
+              catalog: data.image.url.catalog || "No foto",
+              additional: data.image.url.additional || [],
+            } || {},
+          bgColor: data.image.bgColor || "#eee",
+        } || {},
     };
   });
 

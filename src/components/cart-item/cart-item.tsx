@@ -7,7 +7,7 @@ export const CartItemComponent: React.FC<CartItemProps> = ({ item }) => {
     <div>
       <h3>{item.name}</h3>
       <p>Количество: {item.quantity}</p>
-      <p>Цена: {item.price * item.quantity} руб.</p>
+      <p>Цена: {item.price.current * item.quantity} руб.</p>
       <CartCounter product={item} />
     </div>
   );

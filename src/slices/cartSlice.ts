@@ -39,7 +39,7 @@ export const cartSlice = createSlice({
       } else {
         state.items.push({ ...action.payload, quantity: 1 });
       }
-      state.totalAmount += action.payload.price;
+      state.totalAmount += action.payload.price.current;
 
       // Сохраняем состояние в localStorage после добавления товара
       localStorage.setItem('cartItems', JSON.stringify(state.items));
@@ -51,7 +51,7 @@ export const cartSlice = createSlice({
       );
       if (itemIndex !== -1) {
         const item = state.items[itemIndex];
-        state.totalAmount -= item.price;
+        state.totalAmount -= item.price.current;
         if (item.quantity === 1) {
           state.items.splice(itemIndex, 1);
         } else {

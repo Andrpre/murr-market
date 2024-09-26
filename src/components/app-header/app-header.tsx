@@ -18,6 +18,7 @@ export const AppHeader: React.FC = () => {
       style={{
         position: "fixed",
         zIndex: 1,
+        maxWidth: "1200px",
         width: "100%",
         backgroundColor: "#fff",
       }}

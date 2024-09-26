@@ -8,9 +8,23 @@ export enum RequestStatus {
 export interface Product {
   id: string;
   name: string;
-  price: number;
-  image: string;
-  description: string;
+  price: {
+    current: number;
+    old: number;
+  };
+  image: {
+    url: {
+      main: string;
+      catalog: string;
+      additional: string[];
+    };
+    bgColor: string;
+  };
+  description: {
+    main: string;
+    advantages: string;
+    usage: string;
+  };
 }
 
 export interface CartItem extends Product {
