@@ -1,0 +1,33 @@
+.nav__list {
+  display: flex;
+  gap: 30px;
+  font-size: 16px;
+
+  &-item {
+    &-link {
+      padding: 10px 15px;
+      border-radius: 50px;
+    }
+
+    &-active-link {
+      color: var(--alternative-text-color);
+      background-color: var(--main-color);
+      transition: 0.3s background-color;
+
+      &:hover {
+        color: var(--alternative-text-color);
+        cursor: default;
+      }
+    }
+
+    &-inactive-link {
+      color: var(--main-text-color);
+      transition: 0.3s background-color;
+
+      &:hover {
+        background-color: var(--alternative-text-color);
+        color: inherit;
+      }
+    }
+  }
+}

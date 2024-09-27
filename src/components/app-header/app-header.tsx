@@ -6,6 +6,9 @@ import { selectTotalQuantity } from "../../slices/cartSlice";
 import LocalMallRoundedIcon from "@mui/icons-material/LocalMallRounded";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { selectWishlistItems } from "../../slices/wishlistSlice";
+import { ReactComponent as Logo } from "../../assets/logo.svg";
+import { HeaderNavigation } from "../ui/header-navigation";
+import styles from "./style.module.scss";
 
 const { Header } = Layout;
 
@@ -13,54 +16,37 @@ export const AppHeader: React.FC = () => {
   const navigate = useNavigate();
   const totalQuantityCartItem = useSelector(selectTotalQuantity);
   const totalQuantityWishItem = useSelector(selectWishlistItems);
+
   return (
-    <Header
-      style={{
-        position: "fixed",
-        zIndex: 1,
-        maxWidth: "1200px",
-        width: "100%",
-        backgroundColor: "#fff",
-      }}
-    >
+    <Header className={styles.header}>
       <Flex gap="middle" align="center" justify="space-between">
-        <Link to="/">
-          <div
-            className="logo"
-            style={{
-              float: "left",
-              color: "#000",
-              fontSize: "24px",
-              fontWeight: "bold",
-            }}
-          >
-            Murr Market
-          </div>
+        <Link to="/" className={styles.logo}>
+          <Logo />
         </Link>
-        <Link to="/">Главная</Link>
+        <HeaderNavigation />
         <Flex gap="middle">
-            <Button
-              onClick={() => navigate("/wishlist")}
-              type="text"
-              shape="circle"
-              size="large"
-              icon={
-                <Badge count={totalQuantityWishItem.length}>
-                  <FavoriteIcon fontSize="large" />
-                </Badge>
-              }
-            />
-            <Button
-              onClick={() => navigate("/cart")}
-              type="text"
-              shape="circle"
-              size="large"
-              icon={
-                <Badge count={totalQuantityCartItem}>
-                  <LocalMallRoundedIcon fontSize="large" />
-                </Badge>
-              }
-            />
+          <Button
+            onClick={() => navigate("/wishlist")}
+            type="text"
+            shape="circle"
+            size="large"
+            icon={
+              <Badge count={totalQuantityWishItem.length}>
+                <FavoriteIcon fontSize="large" />
+              </Badge>
+            }
+          />
+          <Button
+            onClick={() => navigate("/cart")}
+            type="text"
+            shape="circle"
+            size="large"
+            icon={
+              <Badge count={totalQuantityCartItem}>
+                <LocalMallRoundedIcon fontSize="large" />
+              </Badge>
+            }
+          />
         </Flex>
       </Flex>
     </Header>

@@ -1,0 +1,16 @@
+.header {
+  position: fixed;
+  top: 30px;
+  border-radius: 125px;
+  z-index: 10;
+  max-width: 1200px;
+  width: 100%;
+  background-color: #ffffff7c;
+  backdrop-filter: blur(20px);
+  padding: 10px 20px;
+  height: auto;
+}
+
+.logo {
+  display: flex;
+}

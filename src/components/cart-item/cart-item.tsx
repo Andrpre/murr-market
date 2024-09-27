@@ -1,6 +1,6 @@
 import React from 'react';
 import { CartItemProps } from './type';
-import { CartCounter } from '../cart-counter';
+import { CartCounter } from '../ui/cart-counter';
 
 export const CartItemComponent: React.FC<CartItemProps> = ({ item }) => {
   return (

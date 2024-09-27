@@ -1,12 +1,12 @@
 import React from "react";
-import { useDispatch, useSelector } from "../../services/hooks";
+import { useDispatch, useSelector } from "../../../services/hooks";
 import { Button } from "antd";
-import { ProductCardProps } from "../product-card/type";
+import { ProductCardProps } from "../../product-card/type";
 import {
   addItemToCart,
   removeItemFromCart,
   selectCartItems,
-} from "../../slices/cartSlice";
+} from "../../../slices/cartSlice";
 
 import AddRoundedIcon from "@mui/icons-material/AddRounded";
 import RemoveRoundedIcon from "@mui/icons-material/RemoveRounded";

@@ -3,10 +3,10 @@ import { useParams } from "react-router-dom";
 import { useSelector } from "../../services/hooks";
 import { selectProductById } from "../../slices/productsSlice";
 import { Carousel, Col, Row } from "antd";
-import { CartCounter } from "../../components/cart-counter";
-import { WishlistButton } from "../../components/wishlist-button";
-import { ProductDescription } from "../../components/ProductDescription";
-import { BreadCrumb } from "../../components/bread-crumb";
+import { CartCounter } from "../../components/ui/cart-counter";
+import { WishlistButton } from "../../components/ui/wishlist-button";
+import { ProductDescription } from "../../components/ui/product-description";
+import { BreadCrumb } from "../../components/ui/bread-crumb";
 import styles from "./style.module.scss";
 
 const ProductPage: React.FC = () => {

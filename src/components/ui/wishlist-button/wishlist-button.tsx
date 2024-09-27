@@ -1,11 +1,11 @@
 import React from "react";
-import { useDispatch, useSelector } from "../../services/hooks";
+import { useDispatch, useSelector } from "../../../services/hooks";
 import { Button } from "antd";
 import {
   addItemToWishlist,
   removeItemFromWishlist,
   selectWishlistItems,
-} from "../../slices/wishlistSlice";
+} from "../../../slices/wishlistSlice";
 import { WishlistButtonProps } from "./type";
 
 import FavoriteIcon from "@mui/icons-material/Favorite";

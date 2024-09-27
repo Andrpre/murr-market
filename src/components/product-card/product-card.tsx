@@ -2,9 +2,9 @@ import React from "react";
 import { Card, Flex, Typography } from "antd";
 import { Link } from "react-router-dom";
 import { ProductCardProps } from "./type";
-import { CartCounter } from "../cart-counter";
-import { WishlistButton } from "../wishlist-button";
-import { ProductDescription } from "../ProductDescription";
+import { CartCounter } from "../ui/cart-counter";
+import { WishlistButton } from "../ui/wishlist-button";
+import { ProductDescription } from "../ui/product-description";
 
 export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   return (
