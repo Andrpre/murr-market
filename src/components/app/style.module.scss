@@ -1,13 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&display=swap');
+
+body {
+  font-size: var(--text-size);
+  font-family: "Comfortaa", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+}   
+
 .layout {
     max-width: 1200px;
     margin: auto;
     background-color: transparent;
 }
 
-.main {
-    margin-top: 190px;
+.content {
+    margin-top: 160px;
 }
 
 .footer {
     text-align: center;
+}
+
+@media (width <= 758px ) {
+    .layout {
+        padding: 0 10px;
+    }
 }

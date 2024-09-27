@@ -4,13 +4,13 @@ import styles from "./style.module.scss";
 import clsx from "clsx";
 import { Button, Drawer } from "antd";
 import { NavLinksProps } from "./type";
-import useDeviceType from "../../../services/useDeviceType";
+import useDeviceType from "../../../hooks/useDeviceType";
 import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
 
 const NavLinks: React.FC<NavLinksProps> = ({ onClose, direction = "row" }) => {
   const navItems = [
     { label: "Главная", path: "/" },
-    { label: "Наши товары", path: "/catalog" },
+    { label: "Наши товары", path: "/#products" },
     { label: "Котакции", path: "/promo" },
     { label: "Контакты", path: "/contacts" },
   ];

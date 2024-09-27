@@ -1,14 +1,14 @@
 import React from "react";
 import { Form, Input, Button, Select, notification } from "antd";
 import { useNavigate } from "react-router-dom";
-import { OrderData, RequestStatus } from "../utils/types";
-import { useDispatch, useSelector } from "../services/hooks";
+import { OrderData, RequestStatus } from "../../utils/types";
+import { useDispatch, useSelector } from "../../services/hooks";
 import {
   submitOrder,
   selectCartItems,
   selectOrderStatus,
   selectTotalAmount,
-} from "../slices/cartSlice";
+} from "../../slices/cartSlice";
 
 const { Option } = Select;
 

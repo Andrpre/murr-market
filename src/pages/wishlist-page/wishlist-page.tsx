@@ -1,9 +1,9 @@
 import React from "react";
-import { useSelector } from "../services/hooks";
-import { selectWishlistItems } from "../slices/wishlistSlice";
+import { useSelector } from "../../services/hooks";
+import { selectWishlistItems } from "../../slices/wishlistSlice";
 import { Row, Col } from "antd";
 import { Link } from "react-router-dom";
-import { ProductCard } from "../components/product-card";
+import { ProductCard } from "../../components/product-card";
 
 export const WishlistPage: React.FC = () => {
   const wishlistItems = useSelector(selectWishlistItems);

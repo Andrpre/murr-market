@@ -1,5 +1,5 @@
 import React from "react";
-import { Badge, Button, Flex, Layout } from "antd";
+import { Badge, Button, Flex, Layout, Typography } from "antd";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "../../services/hooks";
 import { selectTotalQuantity } from "../../slices/cartSlice";
@@ -22,6 +22,7 @@ export const AppHeader: React.FC = () => {
       <Flex gap="middle" align="center" justify="space-between">
         <Link to="/" className={styles.logo}>
           <Logo />
+          {/* <h2>Мурр Маркет</h2> */}
         </Link>
         <HeaderNavigation />
         <Flex gap="middle">
