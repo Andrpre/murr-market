@@ -35,7 +35,7 @@ const ProductPage: React.FC = () => {
               <div
                 style={{
                   position: "absolute",
-                  zIndex: "10",
+                  zIndex: "2",
                   right: "20px",
                   top: "20px",
                 }}

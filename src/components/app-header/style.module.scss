@@ -1,16 +1,30 @@
 .header {
   position: fixed;
-  top: 30px;
-  border-radius: 125px;
-  z-index: 10;
+  z-index: 3;
   max-width: 1200px;
   width: 100%;
-  background-color: #ffffff7c;
-  backdrop-filter: blur(20px);
   padding: 10px 20px;
   height: auto;
-}
 
-.logo {
-  display: flex;
+  &_top {
+    transition: background-color 0.5s, transform 0.5s,
+      border-radius 0.5s;
+    background-color: var(--main-color);
+    border-radius: 0 0 var(--main-radius) var(--main-radius);
+    color: var(--alternative-text-color);
+
+    .logo {
+      color: var(--alternative-text-color);
+    }
+  }
+
+  &_scrolled {
+    transition: background-color 0.5s, transform 0.5s,
+      border-radius 0.5s;
+    transform: translateY(10px);
+    box-shadow: 0 4px 15px #0000001d;
+    background-color: #ffffff7c;
+    backdrop-filter: blur(20px);
+    border-radius: var(--main-radius);
+  }
 }

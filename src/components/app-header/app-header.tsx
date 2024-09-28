@@ -1,30 +1,57 @@
-import React from "react";
-import { Badge, Button, Flex, Layout, Typography } from "antd";
+import React, { useEffect, useState } from "react";
+import { Badge, Button, Flex, Layout } from "antd";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "../../services/hooks";
 import { selectTotalQuantity } from "../../slices/cartSlice";
-import LocalMallRoundedIcon from "@mui/icons-material/LocalMallRounded";
-import FavoriteIcon from "@mui/icons-material/Favorite";
 import { selectWishlistItems } from "../../slices/wishlistSlice";
-import { ReactComponent as Logo } from "../../assets/logo.svg";
-import { HeaderNavigation } from "../ui/header-navigation";
+import { ReactComponent as FavoriteIcon } from "../../assets/heart.svg";
+import { ReactComponent as LocalMallRoundedIcon } from "../../assets/cart.svg";
 import styles from "./style.module.scss";
+import clsx from "clsx";
 
 const { Header } = Layout;
 
 export const AppHeader: React.FC = () => {
   const navigate = useNavigate();
-  const totalQuantityCartItem = useSelector(selectTotalQuantity);
-  const totalQuantityWishItem = useSelector(selectWishlistItems);
+  const totalQuantityCartItem = useSelector(
+    selectTotalQuantity
+  );
+  const totalQuantityWishItem = useSelector(
+    selectWishlistItems
+  );
+
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 50) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   return (
-    <Header className={styles.header}>
-      <Flex gap="middle" align="center" justify="space-between">
-        <Link to="/" className={styles.logo}>
-          <Logo />
-          {/* <h2>Мурр Маркет</h2> */}
+    <Header
+      className={clsx(styles.header, {
+        [styles.header_scrolled]: isScrolled,
+        [styles.header_top]: !isScrolled,
+      })}
+    >
+      <Flex
+        gap="middle"
+        align="center"
+        justify="space-between"
+      >
+        <Link to="/">
+          <h2 className={styles.logo}>Мурр Маркет</h2>
         </Link>
-        <HeaderNavigation />
         <Flex gap="middle">
           <Button
             onClick={() => navigate("/wishlist")}
@@ -33,7 +60,14 @@ export const AppHeader: React.FC = () => {
             size="large"
             icon={
               <Badge count={totalQuantityWishItem.length}>
-                <FavoriteIcon fontSize="large" />
+                <FavoriteIcon
+                  className="svg_size_default"
+                  fill={
+                    isScrolled
+                      ? "var(--main-color)"
+                      : "var(--alternative-text-color)"
+                  }
+                />
               </Badge>
             }
           />
@@ -44,7 +78,13 @@ export const AppHeader: React.FC = () => {
             size="large"
             icon={
               <Badge count={totalQuantityCartItem}>
-                <LocalMallRoundedIcon fontSize="large" />
+                <LocalMallRoundedIcon
+                  className="svg_size_default"
+                  fill={
+                    isScrolled
+                      ? "var(--main-color)"
+                      : "var(--alternative-text-color)"
+                  } />
               </Badge>
             }
           />
