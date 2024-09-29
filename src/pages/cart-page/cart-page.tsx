@@ -1,10 +1,13 @@
 import React from "react";
 import { useSelector } from "../../services/hooks";
-import { selectCartItems, selectTotalAmount } from "../../slices/cartSlice";
-import { CartItemComponent } from "../../components/cart-item";
+import {
+  selectCartItems,
+  selectTotalAmount,
+} from "../../slices/cartSlice";
 import { Button, Empty, Typography } from "antd";
 import { Link, useNavigate } from "react-router-dom";
 import { BreadCrumb } from "../../components/ui/bread-crumb";
+import { ProductCard } from "../../components/product-card";
 
 const CartPage: React.FC = () => {
   const navigate = useNavigate();
@@ -18,17 +21,23 @@ const CartPage: React.FC = () => {
         <Empty
           description={
             <Typography.Text>
-              Корзина пуста, <Link to="/">вернуться на главную</Link>
+              Корзина пуста,{" "}
+              <Link to="/">вернуться на главную</Link>
             </Typography.Text>
           }
         />
       ) : (
         <div>
           {cartItems.map((item) => (
-            <CartItemComponent key={item.id} item={item} />
+            <ProductCard key={item.id} product={item} rowDirection />
           ))}
           <h3>Итого: {totalAmount} руб.</h3>
-        <Button type="primary" onClick={() => navigate("/checkout")}>Оформить заказ</Button>
+          <Button
+            type="primary"
+            onClick={() => navigate("/checkout")}
+          >
+            Оформить заказ
+          </Button>
         </div>
       )}
     </div>

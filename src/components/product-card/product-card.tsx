@@ -7,9 +7,11 @@ import { WishlistButton } from "../ui/wishlist-button";
 import { ProductDescription } from "../ui/product-description";
 import styles from "./style.module.scss";
 import { HighlighterProductAdded } from "../ui/highlighter-product-added";
+import clsx from "clsx";
 
 export const ProductCard: React.FC<ProductCardProps> = ({
   product,
+  rowDirection = false,
 }) => {
   return (
     <Link to={`/products/${product.id}`}>
@@ -17,10 +19,17 @@ export const ProductCard: React.FC<ProductCardProps> = ({
         productId={product.id}
         hover={true}
       >
-        <article className={styles.product}>
-          <div className={styles.product__wish}>
-            <WishlistButton product={product} />
-          </div>
+        <article
+          className={clsx(
+            styles.product,
+            rowDirection && styles.product_row
+          )}
+        >
+          {!rowDirection && (
+            <div className={styles.product__wish}>
+              <WishlistButton product={product} />
+            </div>
+          )}
 
           <img
             className={styles.product__image}
@@ -44,7 +53,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
               />
             </Typography.Paragraph>
           </div>
-          <Flex justify="space-between" align="center">
+          <Flex className={styles["product__trade-offer"]} justify="space-between" align="center">
             <span className={styles.product__price}>
               {product.price.current} МК
             </span>

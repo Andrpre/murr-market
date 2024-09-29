@@ -1,6 +1,5 @@
 .product {
-  display: flex;
-  flex-direction: column;
+  display: grid;
   gap: 20px;
   padding: 20px;
 
@@ -29,5 +28,16 @@
   &__price {
     font-size: 18px;
     font-weight: bold;
+  }
+
+  &_row {
+    grid-template-columns: 85px 1fr 220px;
+    align-items: center;
+    gap: 30px;
+    padding: 20px 30px;
+
+    .product__trade-offer {
+      flex: 100%;
+    }
   }
 }

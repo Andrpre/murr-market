@@ -4,22 +4,22 @@ import {
   useSelector,
 } from "../../../services/hooks";
 import { Button } from "antd";
-import { ProductCardProps } from "../../product-card/type";
 import styles from "./style.module.scss";
 import {
   addItemToCart,
   removeItemFromCart,
   selectCartItems,
 } from "../../../slices/cartSlice";
+import { Product } from "../../../utils/types";
 
 import { ReactComponent as DeleteIcon } from "../../../assets/delete.svg";
 import { ReactComponent as RemoveIcon } from "../../../assets/minus.svg";
 import { ReactComponent as AddIcon } from "../../../assets/plus.svg";
 import clsx from "clsx";
 
-export const CartCounter: React.FC<ProductCardProps> = ({
-  product,
-}) => {
+export const CartCounter: React.FC<{
+  product: Product;
+}> = ({ product }) => {
   const dispatch = useDispatch();
   const cartItems = useSelector(selectCartItems);
 
