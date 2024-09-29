@@ -61,7 +61,7 @@ export const AppHeader: React.FC = () => {
             icon={
               <Badge count={totalQuantityWishItem.length}>
                 <FavoriteIcon
-                  className="svg_size_default"
+                  className={clsx("icon_size_medium", "icon_hover")}
                   fill={
                     isScrolled
                       ? "var(--main-color)"
@@ -79,7 +79,7 @@ export const AppHeader: React.FC = () => {
             icon={
               <Badge count={totalQuantityCartItem}>
                 <LocalMallRoundedIcon
-                  className="svg_size_default"
+                  className={clsx("icon_size_medium", "icon_hover")}
                   fill={
                     isScrolled
                       ? "var(--main-color)"

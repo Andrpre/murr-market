@@ -4,6 +4,7 @@ import { selectWishlistItems } from "../../slices/wishlistSlice";
 import { Row, Col } from "antd";
 import { Link } from "react-router-dom";
 import { ProductCard } from "../../components/product-card";
+import { BreadCrumb } from "../../components/ui/bread-crumb";
 
 export const WishlistPage: React.FC = () => {
   const wishlistItems = useSelector(selectWishlistItems);
@@ -14,10 +15,16 @@ export const WishlistPage: React.FC = () => {
 
   return (
     <div>
-      <h2>Ваш список желаемого</h2>
+      <BreadCrumb titles={[{ name: "Список желаемого" }]} />
       <Row gutter={[16, 16]}>
         {wishlistItems.map((product) => (
-          <Col key={product.id} xs={24} sm={12} md={8} lg={6}>
+          <Col
+            key={product.id}
+            xs={24}
+            sm={12}
+            md={8}
+            lg={6}
+          >
             <Link to={`/products/${product.id}`}>
               <ProductCard product={product} />
             </Link>

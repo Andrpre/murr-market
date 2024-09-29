@@ -8,11 +8,14 @@ import { WishlistButton } from "../../components/ui/wishlist-button";
 import { ProductDescription } from "../../components/ui/product-description";
 import { BreadCrumb } from "../../components/ui/bread-crumb";
 import styles from "./style.module.scss";
+import { HighlighterProductAdded } from "../../components/ui/highlighter-product-added";
 
 const ProductPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const productId = String(id);
-  const product = useSelector((state) => selectProductById(state, productId));
+  const product = useSelector((state) =>
+    selectProductById(state, productId)
+  );
 
   if (!product) {
     return <p>Товар не найден</p>;
@@ -20,7 +23,7 @@ const ProductPage: React.FC = () => {
 
   return (
     <>
-    <BreadCrumb titles={[{name: product.name}]} />
+      <BreadCrumb titles={[{ name: product.name }]} />
       <section className={styles.card}>
         <Row gutter={[50, 0]}>
           <Col key={product.id} xs={24} sm={12} lg={12}>
@@ -44,34 +47,61 @@ const ProductPage: React.FC = () => {
               </div>
               {product.image.url.additional.length > 0 ? (
                 <Carousel arrows draggable infinite>
-                  <img src={product.image.url.main} alt={product.name} />
-                  {product.image.url.additional.map((url, index) => (
-                    <img key={index} src={url} alt={product.name} />
-                  ))}
+                  <img
+                    src={product.image.url.main}
+                    alt={product.name}
+                  />
+                  {product.image.url.additional.map(
+                    (url, index) => (
+                      <img
+                        key={index}
+                        src={url}
+                        alt={product.name}
+                      />
+                    )
+                  )}
                 </Carousel>
               ) : (
-                <img src={product.image.url.main} alt={product.name} />
+                <img
+                  src={product.image.url.main}
+                  alt={product.name}
+                />
               )}
             </div>
           </Col>
           <Col key={product.id} xs={24} sm={12} lg={12}>
-          <div className={styles["card__info"]}>
-            <h2>{product.name}</h2>
-            <p>
-              <b>Описание:</b>
-            </p>
-            <ProductDescription description={product.description.main} />
-            <p>
-              <b>Преимущества:</b>
-            </p>
-            <ProductDescription description={product.description.advantages} />
-            <p>
-              <b>Эксплуатация:</b>
-            </p>
-            <ProductDescription description={product.description.usage} />
-            <p>Цена: {product.price.current} мурркоинов</p>
-            <CartCounter product={product} />
-            </div>
+            <HighlighterProductAdded
+              productId={product.id}
+              hover={false}
+            >
+              <div className={styles.card__info}>
+                <h2>{product.name}</h2>
+                <p>
+                  <b>Описание:</b>
+                </p>
+                <ProductDescription
+                  description={product.description.main}
+                />
+                <p>
+                  <b>Преимущества:</b>
+                </p>
+                <ProductDescription
+                  description={
+                    product.description.advantages
+                  }
+                />
+                <p>
+                  <b>Эксплуатация:</b>
+                </p>
+                <ProductDescription
+                  description={product.description.usage}
+                />
+                <p>
+                  Цена: {product.price.current} мурркоинов
+                </p>
+                <CartCounter product={product} />
+              </div>
+            </HighlighterProductAdded>
           </Col>
         </Row>
       </section>

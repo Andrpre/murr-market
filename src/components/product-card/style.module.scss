@@ -1,0 +1,33 @@
+.product {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
+
+  &__wish {
+    position: absolute;
+    right: 15px;
+    top: 15px;
+  }
+
+  &__image {
+    width: 100%;
+    max-width: 250px;
+    align-self: center;
+  }
+
+  &__description {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    &-text {
+      line-height: 1.2;
+    }
+  }
+
+  &__price {
+    font-size: 18px;
+    font-weight: bold;
+  }
+}

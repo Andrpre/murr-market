@@ -4,6 +4,7 @@ import { selectCartItems, selectTotalAmount } from "../../slices/cartSlice";
 import { CartItemComponent } from "../../components/cart-item";
 import { Button, Empty, Typography } from "antd";
 import { Link, useNavigate } from "react-router-dom";
+import { BreadCrumb } from "../../components/ui/bread-crumb";
 
 const CartPage: React.FC = () => {
   const navigate = useNavigate();
@@ -12,7 +13,7 @@ const CartPage: React.FC = () => {
 
   return (
     <div>
-      <h2>Корзина</h2>
+      <BreadCrumb titles={[{ name: "Корзина" }]} />
       {cartItems.length === 0 ? (
         <Empty
           description={
