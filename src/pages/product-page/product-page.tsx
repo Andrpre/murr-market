@@ -26,7 +26,7 @@ const ProductPage: React.FC = () => {
       <BreadCrumb titles={[{ name: product.name }]} />
       <section className={styles.card}>
         <Row gutter={[50, 0]}>
-          <Col key={product.id} xs={24} sm={12} lg={12}>
+          <Col xs={24} sm={12} lg={12}>
             <div
               style={{
                 backgroundColor: `${product.image.bgColor}`,
@@ -69,7 +69,7 @@ const ProductPage: React.FC = () => {
               )}
             </div>
           </Col>
-          <Col key={product.id} xs={24} sm={12} lg={12}>
+          <Col xs={24} sm={12} lg={12}>
             <HighlighterProductAdded
               productId={product.id}
               hover={false}

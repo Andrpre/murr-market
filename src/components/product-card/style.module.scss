@@ -1,5 +1,9 @@
 .product {
   display: grid;
+  grid-template-areas:
+    "image"
+    "description"
+    "trade-offer";
   gap: 20px;
   padding: 20px;
 
@@ -10,12 +14,15 @@
   }
 
   &__image {
+    grid-area: image;
+    justify-self: center;
     width: 100%;
     max-width: 250px;
     align-self: center;
   }
 
   &__description {
+    grid-area: description;
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -25,6 +32,10 @@
     }
   }
 
+  &__trade-offer {
+    grid-area: trade-offer;
+  }
+
   &__price {
     font-size: 18px;
     font-weight: bold;
@@ -32,12 +43,18 @@
 
   &_row {
     grid-template-columns: 85px 1fr 220px;
+    grid-template-areas: "image description trade-offer";
     align-items: center;
     gap: 30px;
     padding: 20px 30px;
 
-    .product__trade-offer {
-      flex: 100%;
+    @media (width <= 758px) {
+        grid-template-columns: 85px 1fr;
+        grid-template-areas:
+          "image description"
+          "trade-offer trade-offer";
+        gap: 10px;
+        padding: 20px;
     }
   }
 }

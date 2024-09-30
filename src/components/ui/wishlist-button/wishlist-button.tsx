@@ -50,7 +50,7 @@ export const WishlistButton: React.FC<
         <FavoriteIcon
           fill="#fff"
           stroke="#000"
-          stroke-width="32"
+          strokeWidth="32"
           className={clsx("icon_size_medium", "icon_hover")}
         />
       )}

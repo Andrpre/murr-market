@@ -1,0 +1,10 @@
+.cart {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  &__product-shell {
+    box-shadow: var(--box-shadow);
+    border-radius: 20px;
+  }
+}

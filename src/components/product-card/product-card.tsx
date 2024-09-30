@@ -6,7 +6,6 @@ import { CartCounter } from "../ui/cart-counter";
 import { WishlistButton } from "../ui/wishlist-button";
 import { ProductDescription } from "../ui/product-description";
 import styles from "./style.module.scss";
-import { HighlighterProductAdded } from "../ui/highlighter-product-added";
 import clsx from "clsx";
 
 export const ProductCard: React.FC<ProductCardProps> = ({
@@ -15,10 +14,6 @@ export const ProductCard: React.FC<ProductCardProps> = ({
 }) => {
   return (
     <Link to={`/products/${product.id}`}>
-      <HighlighterProductAdded
-        productId={product.id}
-        hover={true}
-      >
         <article
           className={clsx(
             styles.product,
@@ -60,7 +55,6 @@ export const ProductCard: React.FC<ProductCardProps> = ({
             <CartCounter product={product} />
           </Flex>
         </article>
-      </HighlighterProductAdded>
     </Link>
   );
 };
