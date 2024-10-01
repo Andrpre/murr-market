@@ -18,5 +18,7 @@ body {
 }
 
 .footer {
+    border-radius: var(--main-radius) var(--main-radius) 0 0;
+    margin-top: 50px;
     text-align: center;
 }

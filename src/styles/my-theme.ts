@@ -7,11 +7,12 @@ export const myTheme = {
     // colorText: "var(--alternative-text-color)",
   },
   components: {
-    Carousel: {
-        arrowSize: 32,
-        dotActiveWidth: 32,
-        dotHeight: 5,
-        dotWidth: 24,
+    Tabs: {
+      inkBarColor: "var(--main-color)",
+      itemActiveColor: "var(--main-color)",
+      itemHoverColor: "var(--secondary-text-color)",
+      itemSelectedColor: "var(--main-color)",
+      titleFontSize: 16,
     },
   },
 };

@@ -50,7 +50,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
           </div>
           <Flex className={styles["product__trade-offer"]} justify="space-between" align="center">
             <span className={styles.product__price}>
-              {product.price.current} МК
+              {product.price.current}€
             </span>
             <CartCounter product={product} />
           </Flex>

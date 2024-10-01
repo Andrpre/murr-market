@@ -42,7 +42,7 @@ const App: React.FC = () => {
             />
           </Routes>
         </Content>
-        <Footer className={styles.footer}>Murr Market ©2024</Footer>
+        <Footer className={styles.footer}>Murr Market 2024©</Footer>
       </Layout>
       </ConfigProvider>
     </Router>

@@ -30,7 +30,7 @@ const CartPage: React.FC = () => {
               <ProductCard product={item} rowDirection />
             </div>
           ))}
-          <h3>Итого: {totalAmount} руб.</h3>
+          <h3>Итого: {totalAmount}€</h3>
           <Button type="primary" onClick={() => navigate("/checkout")}>
             Оформить заказ
           </Button>

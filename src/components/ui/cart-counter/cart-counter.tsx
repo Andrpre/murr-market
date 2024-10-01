@@ -1,8 +1,5 @@
 import React from "react";
-import {
-  useDispatch,
-  useSelector,
-} from "../../../services/hooks";
+import { useDispatch, useSelector } from "../../../services/hooks";
 import { Button } from "antd";
 import styles from "./style.module.scss";
 import {
@@ -15,6 +12,7 @@ import { Product } from "../../../utils/types";
 import { ReactComponent as DeleteIcon } from "../../../assets/delete.svg";
 import { ReactComponent as RemoveIcon } from "../../../assets/minus.svg";
 import { ReactComponent as AddIcon } from "../../../assets/plus.svg";
+import { ReactComponent as CartAddIcon } from "../../../assets/cart.svg";
 import clsx from "clsx";
 
 export const CartCounter: React.FC<{
@@ -24,9 +22,7 @@ export const CartCounter: React.FC<{
   const cartItems = useSelector(selectCartItems);
 
   const getProductQuantity = () => {
-    const cartItem = cartItems.find(
-      (item) => item.id === product.id
-    );
+    const cartItem = cartItems.find((item) => item.id === product.id);
     return cartItem ? cartItem.quantity : 0;
   };
 
@@ -47,7 +43,7 @@ export const CartCounter: React.FC<{
   };
   return (
     <div className={styles.count}>
-      {quantity !== 0 && (
+      {quantity > 0 && (
         <>
           <Button
             className={clsx(
@@ -68,9 +64,7 @@ export const CartCounter: React.FC<{
               />
             )}
           </Button>
-          <div className={styles.count__quantity}>
-            {quantity}
-          </div>
+          <div className={styles.count__quantity}>{quantity}</div>
         </>
       )}
       <Button
@@ -80,10 +74,17 @@ export const CartCounter: React.FC<{
         )}
         onClick={handleClickAdd}
       >
-        <AddIcon
-          fill="var(--alternative-text-color)"
-          className={"icon_size_small"}
-        />
+        {quantity === 0 ? (
+          <CartAddIcon
+            fill="var(--alternative-text-color)"
+            className={"icon_size_small"}
+          />
+        ) : (
+          <AddIcon
+            fill="var(--alternative-text-color)"
+            className={"icon_size_small"}
+          />
+        )}
       </Button>
     </div>
   );

@@ -19,30 +19,32 @@ h4 {
 }
 
 .icon {
+  &_size_small {
+    width: 20px;
+  }
 
-    &_size_small {
-        width: 20px;
-    }
+  &_size_medium {
+    width: 35px;
+  }
 
-    &_size_medium {
-        width: 35px;
-    }
+  &_hover {
+    transition: transform 0.3s;
 
-    &_hover {
-        transition: transform 0.3s;
-      
-        &:hover {
-          transform: scale(1.2);
-        }
+    &:hover {
+      transform: scale(1.2);
     }
+  }
 }
 
-.slick-dots button {
-  background-color: var(--main-color) !important;
+/* Стиль для каждой точки пагинации */
+.swiper-pagination-bullet {
+  transition: transform 0.5s;
 }
 
-.slick-arrow {
-  color: var(--main-color) !important;
+/* Стиль для активной точки пагинации */
+.swiper-pagination-bullet-active {
+  background-color: var(--main-color)!important;
+  transform: scale(1.2)!important;
 }
 
 @media (width <= 758px) {
