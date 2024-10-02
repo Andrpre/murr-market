@@ -1,0 +1,23 @@
+.price {
+
+  &__sale {
+    display: flex;
+    align-items: center;
+    gap: 10%;
+    position: relative;
+
+    .price__sale-current {
+      color: var(--important-color);
+    }
+
+    &-old {
+      text-decoration: line-through;
+      color: var(--secondary-text-color);
+      font-weight: 300;
+    }
+
+    &-current {
+      font-weight: bold;
+    }
+  }
+}

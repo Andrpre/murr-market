@@ -12,6 +12,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
 import "swiper/swiper-bundle.css";
 import { Tabs, TabsProps } from "antd";
+import { ProductPrice } from "../../components/ui/product-price";
 
 const ProductPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -84,9 +85,7 @@ const ProductPage: React.FC = () => {
               items={descriptionItems}
             />
             <div className={styles["card__trade-offer"]}>
-              <span className={styles.card__price}>
-                {product.price.current}€
-              </span>
+              <ProductPrice price={product.price} fontSize={24} />
               <CartCounter product={product} />
             </div>
           </div>
