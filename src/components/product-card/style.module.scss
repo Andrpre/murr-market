@@ -6,11 +6,18 @@
     "trade-offer";
   gap: 20px;
   padding: 20px;
+  position: relative;
 
   &__wish {
     position: absolute;
     right: 15px;
     top: 15px;
+  }
+
+  &__tags {
+    position: absolute;
+    top: 20px;
+    left: 20px;
   }
 
   &__image {
@@ -47,6 +54,10 @@
     align-items: center;
     gap: 30px;
     padding: 20px 30px;
+
+    &__tags {
+      position: static;
+    }
 
     @media (width <= 758px) {
         grid-template-columns: 85px 1fr;

@@ -13,6 +13,7 @@ import { Pagination } from "swiper/modules";
 import "swiper/swiper-bundle.css";
 import { Tabs, TabsProps } from "antd";
 import { ProductPrice } from "../../components/ui/product-price";
+import { ProductTags } from "../../components/ui/product-tags";
 
 const ProductPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -22,6 +23,9 @@ const ProductPage: React.FC = () => {
   if (!product) {
     return <p>Товар не найден</p>;
   }
+
+  const hasTags =
+    product.tags.length !== 0 || product.price.current !== product.price.old;
 
   const descriptionItems: TabsProps["items"] = [
     {
@@ -78,12 +82,17 @@ const ProductPage: React.FC = () => {
         <HighlighterProductAdded productId={product.id} hover={false}>
           <div className={styles.card__info}>
             <h2 className={styles["card__info-title"]}>{product.name}</h2>
-            <Tabs
-              animated={{ inkBar: true, tabPane: true }}
-              className={styles["card__info-description"]}
-              defaultActiveKey="1"
-              items={descriptionItems}
-            />
+            <div className={styles["card__info-body"]}>
+              {hasTags && (
+                <ProductTags product={product} fontSize={16} direction="row" />
+              )}
+              <Tabs
+                animated={{ inkBar: true, tabPane: true }}
+                className={styles["card__info-description"]}
+                defaultActiveKey="1"
+                items={descriptionItems}
+              />
+            </div>
             <div className={styles["card__trade-offer"]}>
               <ProductPrice price={product.price} fontSize={24} />
               <CartCounter product={product} />

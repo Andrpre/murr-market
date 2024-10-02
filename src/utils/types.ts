@@ -25,6 +25,10 @@ export interface Product {
     advantages: string;
     usage: string;
   };
+  tags: {
+    name: string;
+    color: string;
+  }[];
 }
 
 export interface CartItem extends Product {

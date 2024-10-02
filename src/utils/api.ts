@@ -35,6 +35,7 @@ export const fetchProducts = async (): Promise<Product[]> => {
             } || {},
           bgColor: data.image.bgColor || "#eee",
         } || {},
+        tags: data.tags || [],
     };
   });
 

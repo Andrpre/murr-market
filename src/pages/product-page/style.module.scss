@@ -33,6 +33,12 @@
       padding: 30px;
       justify-content: space-between;
 
+      &-body {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
       &-description {
 
         li {

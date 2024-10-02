@@ -8,11 +8,17 @@ import { ProductDescription } from "../ui/product-description";
 import styles from "./style.module.scss";
 import clsx from "clsx";
 import { ProductPrice } from "../ui/product-price";
+import { ProductTags } from "../ui/product-tags";
 
 export const ProductCard: React.FC<ProductCardProps> = ({
   product,
   rowDirection = false,
 }) => {
+  const hasTags =
+    (product.tags.length !== 0 ||
+      product.price.current !== product.price.old) &&
+    rowDirection === false;
+
   return (
     <Link to={`/products/${product.id}`}>
       <article
@@ -23,7 +29,11 @@ export const ProductCard: React.FC<ProductCardProps> = ({
             <WishlistButton product={product} />
           </div>
         )}
-
+        {hasTags && (
+          <div className={styles.product__tags}>
+            <ProductTags product={product} />
+          </div>
+        )}
         <img
           className={styles.product__image}
           alt={product.name}
