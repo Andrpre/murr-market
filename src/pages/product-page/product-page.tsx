@@ -14,7 +14,7 @@ import { HighlighterProductAdded } from "../../components/ui/highlighter-product
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
 import "swiper/swiper-bundle.css";
-import { Spin, Tabs, TabsProps } from "antd";
+import { Skeleton, Tabs, TabsProps } from "antd";
 import { ProductPrice } from "../../components/ui/product-price";
 import { ProductTags } from "../../components/ui/product-tags";
 import { RequestStatus } from "../../utils/types";
@@ -26,7 +26,7 @@ const ProductPage: React.FC = () => {
   const product = useSelector((state) => selectProductById(state, productId));
   const statusRequest = useSelector(getStatusRequest);
 
-  if (statusRequest === RequestStatus.Loading) return <Spin size="large" />;
+  if (statusRequest === RequestStatus.Loading) return <Skeleton active />;
   if (!product) return <p>Товар не найден</p>;
 
   const hasTags =

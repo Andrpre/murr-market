@@ -1,5 +1,5 @@
 import React from "react";
-import { Spin } from "antd";
+import { Skeleton } from "antd";
 import { useSelector } from "../../services/hooks";
 import { getStatusRequest, selectProducts } from "../../slices/productsSlice";
 import { ProductCard } from "../../components/product-card";
@@ -12,7 +12,7 @@ const HomePage: React.FC = () => {
   const statusRequest = useSelector(getStatusRequest);
 
   if (!products.length || statusRequest === RequestStatus.Loading) {
-    return <Spin size="large" />;
+    return <Skeleton active />;
   }
 
   return (

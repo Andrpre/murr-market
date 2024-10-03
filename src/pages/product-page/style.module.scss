@@ -5,6 +5,7 @@
     align-items: stretch;
 
     &__image {
+      height: 100%;
       position: relative;
       border-radius: var(--main-radius);
       overflow: hidden;
