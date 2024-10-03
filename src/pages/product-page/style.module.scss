@@ -8,6 +8,7 @@
       position: relative;
       border-radius: var(--main-radius);
       overflow: hidden;
+      align-self: start;
 
       img {
         width: 100%;
@@ -66,5 +67,6 @@
 
     @media (width <= 758px) {
       grid-template-columns: 100%;
+      gap: 30px;
     }
   }

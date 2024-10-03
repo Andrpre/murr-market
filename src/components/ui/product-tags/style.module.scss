@@ -1,6 +1,7 @@
 .tags {
   display: flex;
   align-items: flex-start;
+  flex-wrap: wrap;
   gap: 5px;
 
   &__item {

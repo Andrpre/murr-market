@@ -13,6 +13,7 @@ import CheckoutPage from "../../pages/checkout-page/checkout-page";
 import { ProtectedRoute } from "../protected-route";
 import styles from "./style.module.scss";
 import { myTheme } from "../../styles/my-theme";
+import { ScrollToTop } from "../scroll-to-top";
 
 const App: React.FC = () => {
   const dispatch = useDispatch();
@@ -23,6 +24,7 @@ const App: React.FC = () => {
 
   return (
     <Router>
+      <ScrollToTop />
       <ConfigProvider theme={myTheme}>
       <Layout className={styles.layout}>
         <AppHeader />

@@ -33,7 +33,7 @@
 
   &_top {
     transition: background-color 0.5s, transform 0.5s,
-      border-radius 0.5s;
+      border-radius 0.5s, width 0.5s, margin 0.5s;
     background-color: var(--main-color);
     border-radius: 0 0 var(--main-radius) var(--main-radius);
     color: var(--alternative-text-color);
@@ -43,13 +43,18 @@
 
   &_scrolled {
     transition: background-color 0.5s, transform 0.5s,
-      border-radius 0.5s;
+      border-radius 0.5s, width 0.5s, margin 0.5s;
     transform: translateY(10px);
     box-shadow: var(--box-shadow);
     background-color: #ffffff7c;
     backdrop-filter: blur(20px);
     border-radius: var(--main-radius);
+    width: calc(100% - 20px);
 
     @include hover-logo(var(--main-color));
+
+    @media (width <= 758px) {
+      margin: 0 0 0 10px;
+    }
   }
 }

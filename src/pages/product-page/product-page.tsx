@@ -1,7 +1,10 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import { useSelector } from "../../services/hooks";
-import { selectProductById } from "../../slices/productsSlice";
+import {
+  getStatusRequest,
+  selectProductById,
+} from "../../slices/productsSlice";
 import { CartCounter } from "../../components/ui/cart-counter";
 import { WishlistButton } from "../../components/ui/wishlist-button";
 import { ProductDescription } from "../../components/ui/product-description";
@@ -11,18 +14,20 @@ import { HighlighterProductAdded } from "../../components/ui/highlighter-product
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
 import "swiper/swiper-bundle.css";
-import { Tabs, TabsProps } from "antd";
+import { Spin, Tabs, TabsProps } from "antd";
 import { ProductPrice } from "../../components/ui/product-price";
 import { ProductTags } from "../../components/ui/product-tags";
+import { RequestStatus } from "../../utils/types";
+import { v4 as uuidv4 } from "uuid";
 
 const ProductPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const productId = String(id);
   const product = useSelector((state) => selectProductById(state, productId));
+  const statusRequest = useSelector(getStatusRequest);
 
-  if (!product) {
-    return <p>Товар не найден</p>;
-  }
+  if (statusRequest === RequestStatus.Loading) return <Spin size="large" />;
+  if (!product) return <p>Товар не найден</p>;
 
   const hasTags =
     product.tags.length !== 0 || product.price.current !== product.price.old;
@@ -68,12 +73,12 @@ const ProductPage: React.FC = () => {
             }}
             modules={[Pagination]}
           >
-            <SwiperSlide>
+            <SwiperSlide key={uuidv4()}>
               <img src={product.image.url.main} alt={product.name} />
             </SwiperSlide>
             {product.image.url.additional.length > 0 &&
-              product.image.url.additional.map((url, index) => (
-                <SwiperSlide key={index}>
+              product.image.url.additional.map((url) => (
+                <SwiperSlide key={uuidv4()}>
                   <img src={url} alt={product.name} />
                 </SwiperSlide>
               ))}

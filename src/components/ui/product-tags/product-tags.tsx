@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./style.module.scss";
 import { ProductTagsProps } from "./type";
+import { v4 as uuidv4 } from "uuid";
 
 export const ProductTags: React.FC<ProductTagsProps> = ({
   product,
@@ -22,6 +23,7 @@ export const ProductTags: React.FC<ProductTagsProps> = ({
     <ul className={styles.tags} style={{ flexDirection: direction }}>
       {isDiscount && (
         <li
+          key={uuidv4()}
           style={{
             backgroundColor: "var(--bg-color-tag-sale)",
             fontSize: fontSize,
@@ -31,9 +33,9 @@ export const ProductTags: React.FC<ProductTagsProps> = ({
           Скидка -{discount}%
         </li>
       )}
-      {product.tags.map((tag, index) => (
+      {product.tags.map((tag) => (
         <li
-          key={index}
+          key={uuidv4()}
           style={{ backgroundColor: tag.color, fontSize: fontSize }}
           className={styles.tags__item}
         >
