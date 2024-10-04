@@ -19,6 +19,7 @@ import { ProductPrice } from "../../components/ui/product-price";
 import { ProductTags } from "../../components/ui/product-tags";
 import { RequestStatus } from "../../utils/types";
 import { v4 as uuidv4 } from "uuid";
+import { EmptyView } from "../../components/ui/empty-view";
 
 const ProductPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -27,8 +28,14 @@ const ProductPage: React.FC = () => {
   const statusRequest = useSelector(getStatusRequest);
 
   if (statusRequest === RequestStatus.Loading) return <Skeleton active />;
-  if (!product) return <p>Товар не найден</p>;
-
+  if (!product) {
+    return (
+      <EmptyView
+        title="Не можем найти такой товар :("
+        button={{ display: true, text: "На главную" }}
+      />
+    );
+  }
   const hasTags =
     product.tags.length !== 0 || product.price.current !== product.price.old;
 
