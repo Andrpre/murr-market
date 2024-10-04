@@ -1,11 +1,12 @@
 import React from "react";
 import { useSelector } from "../../services/hooks";
 import { selectCartItems, selectTotalAmount } from "../../slices/cartSlice";
-import { Button, Empty, Typography } from "antd";
-import { Link, useNavigate } from "react-router-dom";
+import { Button } from "antd";
+import { useNavigate } from "react-router-dom";
 import { BreadCrumb } from "../../components/ui/bread-crumb";
 import { ProductCard } from "../../components/product-card";
 import styles from "./style.module.scss";
+import { EmptyView } from "../../components/ui/empty-view";
 
 const CartPage: React.FC = () => {
   const navigate = useNavigate();
@@ -16,12 +17,9 @@ const CartPage: React.FC = () => {
     <div>
       <BreadCrumb titles={[{ name: "Корзина" }]} />
       {cartItems.length === 0 ? (
-        <Empty
-          description={
-            <Typography.Text>
-              Корзина пуста, <Link to="/">вернуться на главную</Link>
-            </Typography.Text>
-          }
+        <EmptyView
+          title="Ваша корзина пуста"
+          button={{ display: true, text: "За покупками" }}
         />
       ) : (
         <div className={styles.cart}>

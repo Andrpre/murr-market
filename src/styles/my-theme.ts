@@ -1,8 +1,9 @@
 export const myTheme = {
   token: {
-    // colorPrimary: "var(--main-color)",
     fontFamily: "Comfortaa, sans-serif",
     colorLink: "var(--main-color)",
+    colorPrimary: "var(--main-color)",
+    colorPrimaryHover: "#333",
     // colorBgContainer: "var(--main-color)",
     // colorText: "var(--alternative-text-color)",
   },
