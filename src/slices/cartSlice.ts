@@ -9,8 +9,8 @@ interface CartState {
 }
 
 const initialState: CartState = {
-  items: JSON.parse(localStorage.getItem('cartItems') || '[]'), // Загрузка из localStorage
-  totalAmount: JSON.parse(localStorage.getItem('totalAmount') || '0'), // Загрузка суммы из localStorage
+  items: JSON.parse(localStorage.getItem("cartItems") || "[]"), // Загрузка из localStorage
+  totalAmount: JSON.parse(localStorage.getItem("totalAmount") || "0"), // Загрузка суммы из localStorage
   orderStatus: RequestStatus.Idle,
 };
 
@@ -42,8 +42,8 @@ export const cartSlice = createSlice({
       state.totalAmount += action.payload.price.current;
 
       // Сохраняем состояние в localStorage после добавления товара
-      localStorage.setItem('cartItems', JSON.stringify(state.items));
-      localStorage.setItem('totalAmount', JSON.stringify(state.totalAmount));
+      localStorage.setItem("cartItems", JSON.stringify(state.items));
+      localStorage.setItem("totalAmount", JSON.stringify(state.totalAmount));
     },
     removeItemFromCart: (state, action: PayloadAction<string>) => {
       const itemIndex = state.items.findIndex(
@@ -58,10 +58,10 @@ export const cartSlice = createSlice({
           item.quantity -= 1;
         }
       }
-      
+
       // Сохраняем состояние в localStorage после удаления товара
-      localStorage.setItem('cartItems', JSON.stringify(state.items));
-      localStorage.setItem('totalAmount', JSON.stringify(state.totalAmount));
+      localStorage.setItem("cartItems", JSON.stringify(state.items));
+      localStorage.setItem("totalAmount", JSON.stringify(state.totalAmount));
     },
   },
   selectors: {
@@ -70,6 +70,14 @@ export const cartSlice = createSlice({
     selectTotalQuantity: (sliceState: CartState) =>
       sliceState.items.reduce((total, item) => total + item.quantity, 0),
     selectOrderStatus: (sliceState: CartState) => sliceState.orderStatus,
+    selectTotalDiscount: (sliceState: CartState) =>
+      sliceState.items.reduce((totalDiscount, item) => {
+        if (item.price.old > item.price.current) {
+          const discountPerItem = item.price.old - item.price.current;
+          return totalDiscount + discountPerItem * item.quantity;
+        }
+        return totalDiscount;
+      }, 0),
   },
   extraReducers: (builder) => {
     builder
@@ -93,4 +101,5 @@ export const {
   selectTotalAmount,
   selectTotalQuantity,
   selectOrderStatus,
+  selectTotalDiscount,
 } = cartSlice.selectors;

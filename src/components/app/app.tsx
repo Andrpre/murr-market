@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import HomePage from "../../pages/home-page/home-page";
-import CartPage from "../../pages/cart-page/cart-page";
+import { CartPage } from "../../pages/cart-page";
 import ProductPage from "../../pages/product-page/product-page";
 import { ConfigProvider, Layout } from "antd";
 import { AppHeader } from "../app-header";
