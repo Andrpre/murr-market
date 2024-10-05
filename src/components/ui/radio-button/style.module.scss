@@ -1,0 +1,48 @@
+.radio {
+  box-shadow: var(--box-shadow);
+  padding: 30px;
+  border-radius: 20px;
+  position: relative;
+  transition: box-shadow 0.3s;
+
+  &:hover {
+    box-shadow: var(--box-shadow-hover);
+  }
+
+  &:has(input:checked) {
+    box-shadow: none;
+
+    &:hover {
+      cursor: default;
+    }
+  }
+
+  &:has(input:checked)::before {
+    content: "";
+    position: absolute;
+    inset: 5px;
+    z-index: -1;
+    border-radius: 15px;
+    background-color: var(--background-color);
+  }
+
+  &:has(input:checked)::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    z-index: -2;
+    border-radius: 20px;
+    background: linear-gradient(
+      45deg,
+      #bbd7b2,
+      #ffe372,
+      #ff8181,
+      #bbd7b2
+    );
+    -webkit-mask: linear-gradient(#fff 0 0) padding-box,
+      linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) padding-box,
+      linear-gradient(#fff 0 0);
+  }
+}

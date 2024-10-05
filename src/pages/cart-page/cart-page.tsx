@@ -48,10 +48,10 @@ export const CartPage: React.FC = () => {
             </div>
             <Button
               type="primary"
-              className={styles["cart__trade-offer__button"]}
               onClick={() => navigate("/checkout")}
+              className={styles["cart__trade-offer__button"]}
             >
-              Оформить заказ
+              Перейти к оформлению
             </Button>
           </div>
         </div>

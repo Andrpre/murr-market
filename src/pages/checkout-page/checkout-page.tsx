@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Form,
   Input,
   Button,
   Select,
   notification,
+  Radio,
+  Space,
+  RadioChangeEvent,
 } from "antd";
 import { useNavigate } from "react-router-dom";
 import {
@@ -22,17 +25,37 @@ import {
   selectTotalAmount,
 } from "../../slices/cartSlice";
 import { BreadCrumb } from "../../components/ui/bread-crumb";
+import styles from "./style.module.scss";
+import { RadioButton } from "../../components/ui/radio-button";
 
 const { Option } = Select;
 
-const CheckoutPage: React.FC = () => {
+export const CheckoutPage: React.FC = () => {
+  const [value, setValue] = useState("murrcoins");
+  const [submittable, setSubmittable] =
+    React.useState<boolean>(false);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   const cartItems = useSelector(selectCartItems);
   const totalAmount = useSelector(selectTotalAmount);
   const orderStatus = useSelector(selectOrderStatus);
 
   const [form] = Form.useForm();
+
+  const values = Form.useWatch([], form);
+
+  useEffect(() => {
+    form
+      .validateFields({ validateOnly: true })
+      .then(() => setSubmittable(true))
+      .catch(() => setSubmittable(false));
+  }, [form, values]);
+
+  const onChange = (e: RadioChangeEvent) => {
+    setValue(e.target.value);
+  };
 
   const handleFormSubmit = (values: {
     name: string;
@@ -66,91 +89,131 @@ const CheckoutPage: React.FC = () => {
   };
 
   return (
-    <div>
-      <BreadCrumb titles={[{ name: "Корзина", link: "/cart" }, { name: "Оформление заказа" }]} />
-      <Form
-        form={form}
-        layout="vertical"
-        onFinish={handleFormSubmit}
-        initialValues={{ paymentMethod: "murrcoins" }}
-      >
-        <Form.Item
-          name="name"
-          rules={[
-            { required: true, message: "Введите имя" },
-          ]}
+    <>
+      <BreadCrumb
+        titles={[
+          { name: "Корзина", link: "/cart" },
+          { name: "Оформление заказа" },
+        ]}
+      />
+      <section className={styles.checkout}>
+        <Form
+          className={styles.checkout__form}
+          form={form}
+          layout="vertical"
+          onFinish={handleFormSubmit}
+          //   initialValues={{ paymentMethod: "murrcoins" }}
         >
-          <Input placeholder="Имя" variant="filled" />
-        </Form.Item>
+          <h3>Заполните данные</h3>
+          <div className={styles.checkout__inputs}>
+            <Form.Item
+              name="name"
+              rules={[
+                { required: true, message: "Введите имя" },
+              ]}
+            >
+              <Input
+                placeholder="Имя"
+                variant="filled"
+                size="large"
+              />
+            </Form.Item>
 
-        <Form.Item
-          name="email"
-          rules={[
-            { required: true, message: "Введите почту" },
-            {
-              type: "email",
-              message: "Некорректная почта",
-            },
-          ]}
-        >
-          <Input placeholder="Почта" variant="filled" />
-        </Form.Item>
+            <Form.Item
+              name="email"
+              rules={[
+                {
+                  required: true,
+                  message: "Введите почту",
+                },
+                {
+                  type: "email",
+                  message: "Некорректная почта",
+                },
+              ]}
+            >
+              <Input
+                placeholder="Почта"
+                variant="filled"
+                size="large"
+              />
+            </Form.Item>
 
-        <Form.Item
-          name="address"
-          rules={[
-            { required: true, message: "Введите адрес" },
-          ]}
-        >
-          <Input placeholder="Адрес" variant="filled" />
-        </Form.Item>
+            <Form.Item
+              name="address"
+              rules={[
+                {
+                  required: true,
+                  message: "Введите адрес",
+                },
+              ]}
+            >
+              <Input
+                placeholder="Адрес"
+                variant="filled"
+                size="large"
+              />
+            </Form.Item>
 
-        <Form.Item
-          name="phone"
-          rules={[
-            {
-              required: true,
-              message: "Введите номер телефона",
-            },
-            {
-              pattern: /^[0-9+()\- ]{10,}$/,
-              message: "Некорректный телефон",
-            },
-          ]}
-        >
-          <Input
-            placeholder="Введите ваш телефон"
-            variant="filled"
-          />
-        </Form.Item>
-
-        <Form.Item
-          label="Способ оплаты"
-          name="paymentMethod"
-          rules={[
-            {
-              required: true,
-              message: "Выберите способ оплаты",
-            },
-          ]}
-        >
-          <Select>
-            <Option value="murrcoins">Мурркоины</Option>
-          </Select>
-        </Form.Item>
-
-        <Form.Item>
-          <Button
-            type="primary"
-            htmlType="submit"
-            loading={orderStatus === RequestStatus.Loading}
+            <Form.Item
+              name="phone"
+              rules={[
+                {
+                  required: true,
+                  message: "Введите номер телефона",
+                },
+                {
+                  pattern: /^[0-9+()\- ]{10,}$/,
+                  message: "Некорректный телефон",
+                },
+              ]}
+            >
+              <Input
+                placeholder="Телефон"
+                variant="filled"
+                size="large"
+              />
+            </Form.Item>
+          </div>
+          <h3>Способ оплаты</h3>
+          <Form.Item
+            name="paymentMethod"
+            rules={[
+              {
+                required: true,
+                message: "Выберите способ оплаты",
+              },
+            ]}
           >
-            Оформить заказ
-          </Button>
-        </Form.Item>
-      </Form>
-    </div>
+            <Radio.Group
+              onChange={onChange}
+              value={value}
+              size="large"
+            >
+              <Space>
+                <RadioButton value="murrcoins">
+                  Мурркоины €
+                </RadioButton>
+              </Space>
+            </Radio.Group>
+          </Form.Item>
+
+          <Form.Item
+            className={styles.checkout__form__button}
+          >
+            <Button
+              disabled={!submittable}
+              type="primary"
+              htmlType="submit"
+              loading={
+                orderStatus === RequestStatus.Loading
+              }
+            >
+              Оформить заказ
+            </Button>
+          </Form.Item>
+        </Form>
+      </section>
+    </>
   );
 };
-
-export default CheckoutPage;

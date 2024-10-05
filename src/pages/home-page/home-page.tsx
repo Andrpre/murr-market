@@ -4,8 +4,8 @@ import { useSelector } from "../../services/hooks";
 import { getStatusRequest, selectProducts } from "../../slices/productsSlice";
 import { ProductCard } from "../../components/product-card";
 import { RequestStatus } from "../../utils/types";
-import styles from "./style.module.scss";
 import { HighlighterProductAdded } from "../../components/ui/highlighter-product-added";
+import styles from "./style.module.scss";
 
 const HomePage: React.FC = () => {
   const products = useSelector(selectProducts);

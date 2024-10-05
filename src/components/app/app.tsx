@@ -9,7 +9,7 @@ import { Content, Footer } from "antd/es/layout/layout";
 import { WishlistPage } from "../../pages/wishlist-page/wishlist-page";
 import { useDispatch } from "../../services/hooks";
 import { getProducts } from "../../slices/productsSlice";
-import CheckoutPage from "../../pages/checkout-page/checkout-page";
+import { CheckoutPage } from "../../pages/checkout-page";
 import { ProtectedRoute } from "../protected-route";
 import styles from "./style.module.scss";
 import { myTheme } from "../../styles/my-theme";

@@ -36,6 +36,10 @@ h4 {
   }
 }
 
+.ant-form-item {
+  margin-bottom: 0; // Убираем нижний отступ для всех элементов формы
+}
+
 /* Стиль для каждой точки пагинации */
 .swiper-pagination-bullet {
   transition: transform 0.5s;
@@ -43,8 +47,8 @@ h4 {
 
 /* Стиль для активной точки пагинации */
 .swiper-pagination-bullet-active {
-  background-color: var(--main-color)!important;
-  transform: scale(1.2)!important;
+  background-color: var(--main-color) !important;
+  transform: scale(1.2) !important;
 }
 
 @media (width <= 758px) {
