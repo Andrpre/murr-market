@@ -3,7 +3,6 @@ import {
   Form,
   Input,
   Button,
-  Select,
   notification,
   Radio,
   Space,
@@ -25,10 +24,8 @@ import {
   selectTotalAmount,
 } from "../../slices/cartSlice";
 import { BreadCrumb } from "../../components/ui/bread-crumb";
-import styles from "./style.module.scss";
 import { RadioButton } from "../../components/ui/radio-button";
-
-const { Option } = Select;
+import styles from "./style.module.scss";
 
 export const CheckoutPage: React.FC = () => {
   const [value, setValue] = useState("murrcoins");
@@ -76,10 +73,7 @@ export const CheckoutPage: React.FC = () => {
     dispatch(submitOrder(orderData))
       .unwrap()
       .then(() => {
-        notification.success({
-          message: "Заказ успешно оформлен!",
-        });
-        navigate("/");
+        navigate("/checkout/success", { state: { orderData } });
       })
       .catch(() => {
         notification.error({

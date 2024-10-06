@@ -88,6 +88,9 @@ export const cartSlice = createSlice({
         state.orderStatus = RequestStatus.Success;
         state.items = [];
         state.totalAmount = 0;
+
+        localStorage.removeItem("cartItems");
+        localStorage.removeItem("totalAmount");
       })
       .addCase(submitOrder.rejected, (state, action) => {
         state.orderStatus = RequestStatus.Failed;

@@ -15,6 +15,7 @@ import styles from "./style.module.scss";
 import { myTheme } from "../../styles/my-theme";
 import { ScrollToTop } from "../scroll-to-top";
 import { EmptyView } from "../ui/empty-view";
+import { SuccessPage } from "../../pages/success-page";
 
 const App: React.FC = () => {
   const dispatch = useDispatch();
@@ -43,6 +44,7 @@ const App: React.FC = () => {
                   </ProtectedRoute>
                 }
               />
+              <Route path="/checkout/success" element={<SuccessPage />} />
               <Route
                 path="*"
                 element={
