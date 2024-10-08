@@ -1,4 +1,5 @@
 import React from "react";
+import { BASE_URL } from "../../config";
 import { useParams } from "react-router-dom";
 import { useSelector } from "../../services/hooks";
 import {
@@ -81,12 +82,12 @@ const ProductPage: React.FC = () => {
             modules={[Pagination]}
           >
             <SwiperSlide key={uuidv4()}>
-              <img src={product.image.url.main} alt={product.name} />
+              <img src={`${BASE_URL}${product.image.url.main}`} alt={product.name} />
             </SwiperSlide>
             {product.image.url.additional.length > 0 &&
               product.image.url.additional.map((url) => (
                 <SwiperSlide key={uuidv4()}>
-                  <img src={url} alt={product.name} />
+                  <img src={`${BASE_URL}${url}`} alt={product.name} />
                 </SwiperSlide>
               ))}
           </Swiper>

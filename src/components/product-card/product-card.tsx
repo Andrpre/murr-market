@@ -1,4 +1,5 @@
 import React from "react";
+import { BASE_URL } from "../../config";
 import { Flex, Typography } from "antd";
 import { Link } from "react-router-dom";
 import { ProductCardProps } from "./type";
@@ -37,7 +38,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
         <img
           className={styles.product__image}
           alt={product.name}
-          src={product.image.url.catalog}
+          src={`${BASE_URL}${product.image.url.catalog}`}
         />
         <div className={styles.product__description}>
           <h4>{product.name}</h4>

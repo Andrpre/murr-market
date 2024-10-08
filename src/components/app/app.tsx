@@ -25,7 +25,7 @@ const App: React.FC = () => {
   });
 
   return (
-    <Router>
+    <Router basename="/projects/murr-market">
       <ScrollToTop />
       <ConfigProvider theme={myTheme}>
         <Layout className={styles.layout}>

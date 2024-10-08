@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { BASE_URL } from "../../config";
 import { useSelector } from "../../services/hooks";
 import { selectOrderStatus } from "../../slices/cartSlice";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -9,7 +10,6 @@ import {
   OrderData,
   RequestStatus,
 } from "../../utils/types";
-
 import styles from "./style.module.scss";
 import { Avatar, Button, Tooltip } from "antd";
 
@@ -95,7 +95,7 @@ export const SuccessPage: React.FC = () => {
                     "var(--background-color)",
                   boxShadow: "var(--box-shadow-hover)",
                 }}
-                src={item.image.url.main}
+                src={`${BASE_URL}${item.image.url.main}`}
               />
             </Tooltip>
           ))}
