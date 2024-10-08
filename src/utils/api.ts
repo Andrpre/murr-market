@@ -13,29 +13,25 @@ export const fetchProducts = async (): Promise<Product[]> => {
 
     return {
       id: doc.id,
-      name: data.name || "No name",
-      price:
-        {
-          current: data.price.current || 0,
-          old: data.price.old || 0,
-        } || {},
-      description:
-        {
-          main: data.description.main || "No description",
-          advantages: data.description.advantages || "No advantages",
-          usage: data.description.usage || "No usage",
-        } || {},
-      image:
-        {
-          url:
-            {
-              main: data.image.url.main || "No foto",
-              catalog: data.image.url.catalog || "No foto",
-              additional: data.image.url.additional || [],
-            } || {},
-          bgColor: data.image.bgColor || "#eee",
-        } || {},
-        tags: data.tags || [],
+      name: data.name,
+      price: {
+        current: data.price.current,
+        old: data.price.old,
+      },
+      description: {
+        main: data.description.main,
+        advantages: data.description.advantages,
+        usage: data.description.usage,
+      },
+      image: {
+        url: {
+          main: data.image.url.main,
+          catalog: data.image.url.catalog,
+          additional: data.image.url.additional,
+        },
+        bgColor: data.image.bgColor,
+      },
+      tags: data.tags,
     };
   });
 
@@ -49,7 +45,7 @@ export const submitOrderToFirestore = async (
   try {
     await addDoc(collection(db, "orders"), {
       ...orderData,
-      createdAt: new Date(),
+      creatsubmitOrderToFirestoreedAt: new Date(),
     });
   } catch (error) {
     console.error("Error submitting order: ", error);

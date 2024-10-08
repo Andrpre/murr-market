@@ -34,6 +34,7 @@ export const myTheme = {
         borderColorDisabled: "none",
         colorBgContainerDisabled: "var(--disabled-color)",
         colorTextDisabled: "var(--secondary-text-color)",
+        controlHeight: 60,
     },
   },
 };

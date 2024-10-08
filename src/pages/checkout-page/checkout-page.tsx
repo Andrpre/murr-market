@@ -9,14 +9,8 @@ import {
   RadioChangeEvent,
 } from "antd";
 import { useNavigate } from "react-router-dom";
-import {
-  OrderData,
-  RequestStatus,
-} from "../../utils/types";
-import {
-  useDispatch,
-  useSelector,
-} from "../../services/hooks";
+import { OrderData, RequestStatus } from "../../utils/types";
+import { useDispatch, useSelector } from "../../services/hooks";
 import {
   submitOrder,
   selectCartItems,
@@ -28,9 +22,9 @@ import { RadioButton } from "../../components/ui/radio-button";
 import styles from "./style.module.scss";
 
 export const CheckoutPage: React.FC = () => {
+  const [api, contextHolder] = notification.useNotification();
   const [value, setValue] = useState("murrcoins");
-  const [submittable, setSubmittable] =
-    React.useState<boolean>(false);
+  const [submittable, setSubmittable] = useState<boolean>(false);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -52,6 +46,13 @@ export const CheckoutPage: React.FC = () => {
 
   const onChange = (e: RadioChangeEvent) => {
     setValue(e.target.value);
+  };
+
+  const openNotification = () => {
+    api.error({
+      message: "Ошибка при оформлении заказа",
+      description: "Мы уже занимаемся решением проблемы. Попробуйте пожалуйста позже.",
+    });
   };
 
   const handleFormSubmit = (values: {
@@ -76,14 +77,13 @@ export const CheckoutPage: React.FC = () => {
         navigate("/checkout/success", { state: { orderData } });
       })
       .catch(() => {
-        notification.error({
-          message: "Ошибка при оформлении заказа!",
-        });
+        openNotification();
       });
   };
 
   return (
     <>
+      {contextHolder}
       <BreadCrumb
         titles={[
           { name: "Корзина", link: "/cart" },
@@ -96,21 +96,14 @@ export const CheckoutPage: React.FC = () => {
           form={form}
           layout="vertical"
           onFinish={handleFormSubmit}
-          //   initialValues={{ paymentMethod: "murrcoins" }}
         >
           <h3>Заполните данные</h3>
           <div className={styles.checkout__inputs}>
             <Form.Item
               name="name"
-              rules={[
-                { required: true, message: "Введите имя" },
-              ]}
+              rules={[{ required: true, message: "Введите имя" }]}
             >
-              <Input
-                placeholder="Имя"
-                variant="filled"
-                size="large"
-              />
+              <Input placeholder="Имя" variant="filled" size="large" />
             </Form.Item>
 
             <Form.Item
@@ -126,11 +119,7 @@ export const CheckoutPage: React.FC = () => {
                 },
               ]}
             >
-              <Input
-                placeholder="Почта"
-                variant="filled"
-                size="large"
-              />
+              <Input placeholder="Почта" variant="filled" size="large" />
             </Form.Item>
 
             <Form.Item
@@ -142,11 +131,7 @@ export const CheckoutPage: React.FC = () => {
                 },
               ]}
             >
-              <Input
-                placeholder="Адрес"
-                variant="filled"
-                size="large"
-              />
+              <Input placeholder="Адрес" variant="filled" size="large" />
             </Form.Item>
 
             <Form.Item
@@ -162,11 +147,7 @@ export const CheckoutPage: React.FC = () => {
                 },
               ]}
             >
-              <Input
-                placeholder="Телефон"
-                variant="filled"
-                size="large"
-              />
+              <Input placeholder="Телефон" variant="filled" size="large" />
             </Form.Item>
           </div>
           <h3>Способ оплаты</h3>
@@ -179,29 +160,19 @@ export const CheckoutPage: React.FC = () => {
               },
             ]}
           >
-            <Radio.Group
-              onChange={onChange}
-              value={value}
-              size="large"
-            >
+            <Radio.Group onChange={onChange} value={value} size="large">
               <Space>
-                <RadioButton value="murrcoins">
-                  Мурркоины €
-                </RadioButton>
+                <RadioButton value="murrcoins">Мурркоины €</RadioButton>
               </Space>
             </Radio.Group>
           </Form.Item>
 
-          <Form.Item
-            className={styles.checkout__form__button}
-          >
+          <Form.Item className={styles.checkout__form__button}>
             <Button
               disabled={!submittable}
               type="primary"
               htmlType="submit"
-              loading={
-                orderStatus === RequestStatus.Loading
-              }
+              loading={orderStatus === RequestStatus.Loading}
             >
               Оформить заказ
             </Button>
