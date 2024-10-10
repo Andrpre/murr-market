@@ -6,10 +6,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import Player from "lottie-react";
 import animationSuccess from "../../assets/lotties/success.json";
 import animationConfetti from "../../assets/lotties/confetti.json";
-import {
-  OrderData,
-  RequestStatus,
-} from "../../utils/types";
+import { OrderData, RequestStatus } from "../../utils/types";
 import styles from "./style.module.scss";
 import { Avatar, Button, Tooltip } from "antd";
 
@@ -20,24 +17,18 @@ export const SuccessPage: React.FC = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    if (orderStatus !== RequestStatus.Success || !orderData) {
+      navigate("/");
+    }
+
     const delay = setTimeout(() => {
       setIsPlaying(true);
     }, 3000);
 
     return () => clearTimeout(delay);
-  }, []);
+  });
 
-  const { orderData } =
-    (location.state as { orderData: OrderData }) || {};
-
-  useEffect(() => {
-    if (
-      orderStatus !== RequestStatus.Success ||
-      !orderData
-    ) {
-      navigate("/");
-    }
-  }, [orderStatus, navigate]);
+  const { orderData } = (location.state as { orderData: OrderData }) || {};
 
   return (
     <section className={styles.success}>
@@ -71,8 +62,7 @@ export const SuccessPage: React.FC = () => {
           max={{
             count: 3,
             style: {
-              backgroundColor:
-                "var(--secondary-text-color)",
+              backgroundColor: "var(--secondary-text-color)",
               boxShadow: "var(--box-shadow-hover)",
               cursor: "pointer",
             },
@@ -91,8 +81,7 @@ export const SuccessPage: React.FC = () => {
             >
               <Avatar
                 style={{
-                  backgroundColor:
-                    "var(--background-color)",
+                  backgroundColor: "var(--background-color)",
                   boxShadow: "var(--box-shadow-hover)",
                 }}
                 src={`${BASE_URL}${item.image.url.main}`}
@@ -100,14 +89,11 @@ export const SuccessPage: React.FC = () => {
             </Tooltip>
           ))}
         </Avatar.Group>
-        <b>
-          Заказ на сумму {orderData.totalAmount} мурркоинов
-        </b>
+        <b>Заказ на сумму {orderData.totalAmount} мурркоинов</b>
         <p style={{ color: "var(--secondary-text-color)" }}>
           Привезем по адресу: {orderData.address}
           <br />
-          Кожанный все получит, можешь спать спокойно и не
-          париться
+          Кожанный все получит, можешь спать спокойно и не париться
         </p>
       </div>
       <Button

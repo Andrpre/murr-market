@@ -11,7 +11,7 @@ export const WishlistPage: React.FC = () => {
   const wishlistItems = useSelector(selectWishlistItems);
 
   return (
-    <div>
+    <>
       <BreadCrumb titles={[{ name: "Список желаемого" }]} />
       {wishlistItems.length === 0 ? (
         <EmptyView
@@ -31,6 +31,6 @@ export const WishlistPage: React.FC = () => {
           ))}
         </section>
       )}
-    </div>
+    </>
   );
 };

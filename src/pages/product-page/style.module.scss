@@ -67,6 +67,7 @@
     }
 
     @media (width <= 758px) {
+      margin: 0 -10px;
       grid-template-columns: 100%;
       gap: 30px;
     }

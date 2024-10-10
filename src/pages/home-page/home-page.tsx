@@ -6,6 +6,7 @@ import { ProductCard } from "../../components/product-card";
 import { RequestStatus } from "../../utils/types";
 import { HighlighterProductAdded } from "../../components/ui/highlighter-product-added";
 import styles from "./style.module.scss";
+import { WelcomeBlock } from "../../components/welcome-block";
 
 const HomePage: React.FC = () => {
   const products = useSelector(selectProducts);
@@ -16,6 +17,8 @@ const HomePage: React.FC = () => {
   }
 
   return (
+    <>
+    <WelcomeBlock />
     <section className={styles.products}>
       {products.map((product) => (
         <HighlighterProductAdded key={product.id} productId={product.id} hover={true}>
@@ -23,6 +26,7 @@ const HomePage: React.FC = () => {
         </HighlighterProductAdded>
       ))}
     </section>
+    </>
   );
 };
 

@@ -25,7 +25,7 @@
     }
 
     &__info {
-        background-color: var(--disabled-color);
+        background-color: var(--secondary-color);
         max-width: 480px;
         border-radius: var(--main-radius);
         padding: 30px;
@@ -38,10 +38,7 @@
         animation: topToBottom 1s 2s ease forwards;
         opacity: 0;
         position: relative;
-
-        p {
-            text-align: center;
-        }
+        text-align: center;
 
         &::after {
             content: '';
@@ -61,7 +58,7 @@
     }
 
     @media (width <= 758px) {
-      margin: 0 20px;
+      margin: 0 10px;
     }
 }
 
