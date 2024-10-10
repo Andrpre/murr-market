@@ -6,12 +6,16 @@ import { BreadCrumb } from "../../components/ui/bread-crumb";
 import { HighlighterProductAdded } from "../../components/ui/highlighter-product-added";
 import styles from "./style.module.scss";
 import { EmptyView } from "../../components/ui/empty-view";
+import { Helmet } from "react-helmet-async";
 
 export const WishlistPage: React.FC = () => {
   const wishlistItems = useSelector(selectWishlistItems);
 
   return (
     <>
+      <Helmet>
+        <title>Список желаемого | Murr Market</title>
+      </Helmet>
       <BreadCrumb titles={[{ name: "Список желаемого" }]} />
       {wishlistItems.length === 0 ? (
         <EmptyView

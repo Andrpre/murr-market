@@ -11,6 +11,7 @@ import { BreadCrumb } from "../../components/ui/bread-crumb";
 import { ProductCard } from "../../components/product-card";
 import styles from "./style.module.scss";
 import { EmptyView } from "../../components/ui/empty-view";
+import { Helmet } from "react-helmet-async";
 
 export const CartPage: React.FC = () => {
   const navigate = useNavigate();
@@ -22,6 +23,9 @@ export const CartPage: React.FC = () => {
 
   return (
     <>
+      <Helmet>
+        <title>Корзина | Murr Market</title>
+      </Helmet>
       <BreadCrumb titles={[{ name: "Корзина" }]} />
       {cartItems.length === 0 ? (
         <EmptyView

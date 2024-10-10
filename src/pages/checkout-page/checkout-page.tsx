@@ -20,6 +20,7 @@ import {
 import { BreadCrumb } from "../../components/ui/bread-crumb";
 import { RadioButton } from "../../components/ui/radio-button";
 import styles from "./style.module.scss";
+import { Helmet } from "react-helmet-async";
 
 export const CheckoutPage: React.FC = () => {
   const [api, contextHolder] = notification.useNotification();
@@ -51,7 +52,8 @@ export const CheckoutPage: React.FC = () => {
   const openNotification = () => {
     api.error({
       message: "Ошибка при оформлении заказа",
-      description: "Мы уже занимаемся решением проблемы. Попробуйте пожалуйста позже.",
+      description:
+        "Мы уже занимаемся решением проблемы. Попробуйте пожалуйста позже.",
     });
   };
 
@@ -84,6 +86,9 @@ export const CheckoutPage: React.FC = () => {
   return (
     <>
       {contextHolder}
+      <Helmet>
+        <title>Оформление заказа | Murr Market</title>
+      </Helmet>
       <BreadCrumb
         titles={[
           { name: "Корзина", link: "/cart" },

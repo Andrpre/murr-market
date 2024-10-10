@@ -21,6 +21,7 @@ import { ProductTags } from "../../components/ui/product-tags";
 import { RequestStatus } from "../../utils/types";
 import { v4 as uuidv4 } from "uuid";
 import { EmptyView } from "../../components/ui/empty-view";
+import { Helmet } from "react-helmet-async";
 
 const ProductPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -62,6 +63,9 @@ const ProductPage: React.FC = () => {
 
   return (
     <>
+      <Helmet>
+        <title>{product.name} | Murr Market</title>
+      </Helmet>
       <BreadCrumb titles={[{ name: product.name }]} />
       <section className={styles.card}>
         <div
@@ -82,7 +86,10 @@ const ProductPage: React.FC = () => {
             modules={[Pagination]}
           >
             <SwiperSlide key={uuidv4()}>
-              <img src={`${BASE_URL}${product.image.url.main}`} alt={product.name} />
+              <img
+                src={`${BASE_URL}${product.image.url.main}`}
+                alt={product.name}
+              />
             </SwiperSlide>
             {product.image.url.additional.length > 0 &&
               product.image.url.additional.map((url) => (

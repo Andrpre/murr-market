@@ -16,6 +16,7 @@ import { myTheme } from "../../styles/my-theme";
 import { ScrollToTop } from "../scroll-to-top";
 import { EmptyView } from "../ui/empty-view";
 import { SuccessPage } from "../../pages/success-page";
+import { HelmetProvider } from "react-helmet-async";
 
 const App: React.FC = () => {
   const dispatch = useDispatch();
@@ -25,41 +26,43 @@ const App: React.FC = () => {
   });
 
   return (
-    <Router basename="/projects/murr-market">
-      <ScrollToTop />
-      <ConfigProvider theme={myTheme}>
-        <Layout className={styles.layout}>
-          <AppHeader />
-          <Content className={styles.content}>
-            <Routes>
-              <Route path="/" element={<HomePage />} />
-              <Route path="/cart" element={<CartPage />} />
-              <Route path="/products/:id" element={<ProductPage />} />
-              <Route path="/wishlist" element={<WishlistPage />} />
-              <Route
-                path="/checkout"
-                element={
-                  <ProtectedRoute>
-                    <CheckoutPage />
-                  </ProtectedRoute>
-                }
-              />
-              <Route path="/checkout/success" element={<SuccessPage />} />
-              <Route
-                path="*"
-                element={
-                  <EmptyView
-                    title="Ошибка 404. Страница не найдена :("
-                    button={{ display: true, text: "На главную" }}
-                  />
-                }
-              />
-            </Routes>
-          </Content>
-          <Footer className={styles.footer}>Murr Market 2024©</Footer>
-        </Layout>
-      </ConfigProvider>
-    </Router>
+    <HelmetProvider>
+      <Router basename="/projects/murr-market">
+        <ScrollToTop />
+        <ConfigProvider theme={myTheme}>
+          <Layout className={styles.layout}>
+            <AppHeader />
+            <Content className={styles.content}>
+              <Routes>
+                <Route path="/" element={<HomePage />} />
+                <Route path="/cart" element={<CartPage />} />
+                <Route path="/products/:id" element={<ProductPage />} />
+                <Route path="/wishlist" element={<WishlistPage />} />
+                <Route
+                  path="/checkout"
+                  element={
+                    <ProtectedRoute>
+                      <CheckoutPage />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route path="/checkout/success" element={<SuccessPage />} />
+                <Route
+                  path="*"
+                  element={
+                    <EmptyView
+                      title="Ошибка 404. Страница не найдена :("
+                      button={{ display: true, text: "На главную" }}
+                    />
+                  }
+                />
+              </Routes>
+            </Content>
+            <Footer className={styles.footer}>Murr Market 2024©</Footer>
+          </Layout>
+        </ConfigProvider>
+      </Router>
+    </HelmetProvider>
   );
 };
 
