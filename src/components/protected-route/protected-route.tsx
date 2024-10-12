@@ -15,6 +15,6 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
     return <Navigate to="/" />;
   }
 
-  // Если товары есть, показываем дочерний компонент (страницу чекаута)
+  // Если товары есть, показываем дочерний компонент
   return <>{children}</>;
 };

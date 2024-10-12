@@ -9,7 +9,7 @@ import styles from "./style.module.scss";
 import { WelcomeBlock } from "../../components/welcome-block";
 import { Helmet } from "react-helmet-async";
 
-const HomePage: React.FC = () => {
+export const HomePage: React.FC = () => {
   const products = useSelector(selectProducts);
   const statusRequest = useSelector(getStatusRequest);
 
@@ -37,5 +37,3 @@ const HomePage: React.FC = () => {
     </>
   );
 };
-
-export default HomePage;

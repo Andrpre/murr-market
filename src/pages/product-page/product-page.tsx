@@ -23,7 +23,7 @@ import { v4 as uuidv4 } from "uuid";
 import { EmptyView } from "../../components/ui/empty-view";
 import { Helmet } from "react-helmet-async";
 
-const ProductPage: React.FC = () => {
+export const ProductPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const productId = String(id);
   const product = useSelector((state) => selectProductById(state, productId));
@@ -123,5 +123,3 @@ const ProductPage: React.FC = () => {
     </>
   );
 };
-
-export default ProductPage;
