@@ -8,7 +8,11 @@ export const RadioButton: React.FC<RadioButtonProps> = ({
   children,
 }) => {
   return (
-    <Radio value={value} className={styles.radio}>
+    <Radio
+      value={value}
+      className={styles.radio}
+      aria-label={value}
+    >
       {children}
     </Radio>
   );

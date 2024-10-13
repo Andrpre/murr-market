@@ -9,23 +9,33 @@ import {
   RadioChangeEvent,
 } from "antd";
 import { useNavigate } from "react-router-dom";
-import { OrderData, RequestStatus } from "../../utils/types";
-import { useDispatch, useSelector } from "../../services/hooks";
+import { Helmet } from "react-helmet-async";
+
+import {
+  OrderData,
+  RequestStatus,
+} from "../../utils/types";
+import {
+  useDispatch,
+  useSelector,
+} from "../../services/hooks";
 import {
   submitOrder,
   selectCartItems,
   selectOrderStatus,
   selectTotalAmount,
 } from "../../slices/cartSlice";
+
 import { BreadCrumb } from "../../components/ui/bread-crumb";
 import { RadioButton } from "../../components/ui/radio-button";
 import styles from "./style.module.scss";
-import { Helmet } from "react-helmet-async";
 
 export const CheckoutPage: React.FC = () => {
-  const [api, contextHolder] = notification.useNotification();
+  const [api, contextHolder] =
+    notification.useNotification();
   const [value, setValue] = useState("murrcoins");
-  const [submittable, setSubmittable] = useState<boolean>(false);
+  const [submittable, setSubmittable] =
+    useState<boolean>(false);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -35,7 +45,6 @@ export const CheckoutPage: React.FC = () => {
   const orderStatus = useSelector(selectOrderStatus);
 
   const [form] = Form.useForm();
-
   const values = Form.useWatch([], form);
 
   useEffect(() => {
@@ -76,7 +85,9 @@ export const CheckoutPage: React.FC = () => {
     dispatch(submitOrder(orderData))
       .unwrap()
       .then(() => {
-        navigate("/checkout/success", { state: { orderData } });
+        navigate("/checkout/success", {
+          state: { orderData },
+        });
       })
       .catch(() => {
         openNotification();
@@ -101,14 +112,25 @@ export const CheckoutPage: React.FC = () => {
           form={form}
           layout="vertical"
           onFinish={handleFormSubmit}
+          aria-label="Форма оформления заказа"
         >
           <h3>Заполните данные</h3>
-          <div className={styles.checkout__inputs}>
+          <section
+            className={styles.checkout__inputs}
+            aria-label="Заполните данные"
+          >
             <Form.Item
               name="name"
-              rules={[{ required: true, message: "Введите имя" }]}
+              rules={[
+                { required: true, message: "Введите имя" },
+              ]}
             >
-              <Input placeholder="Имя" variant="filled" size="large" />
+              <Input
+                placeholder="Имя"
+                variant="filled"
+                size="large"
+                aria-label="Имя"
+              />
             </Form.Item>
 
             <Form.Item
@@ -124,7 +146,12 @@ export const CheckoutPage: React.FC = () => {
                 },
               ]}
             >
-              <Input placeholder="Почта" variant="filled" size="large" />
+              <Input
+                placeholder="Почта"
+                variant="filled"
+                size="large"
+                aria-label="Почта"
+              />
             </Form.Item>
 
             <Form.Item
@@ -136,7 +163,12 @@ export const CheckoutPage: React.FC = () => {
                 },
               ]}
             >
-              <Input placeholder="Адрес" variant="filled" size="large" />
+              <Input
+                placeholder="Адрес"
+                variant="filled"
+                size="large"
+                aria-label="Адрес"
+              />
             </Form.Item>
 
             <Form.Item
@@ -152,32 +184,50 @@ export const CheckoutPage: React.FC = () => {
                 },
               ]}
             >
-              <Input placeholder="Телефон" variant="filled" size="large" />
+              <Input
+                placeholder="Телефон"
+                variant="filled"
+                size="large"
+                aria-label="Телефон"
+              />
             </Form.Item>
-          </div>
-          <h3>Способ оплаты</h3>
-          <Form.Item
-            name="paymentMethod"
-            rules={[
-              {
-                required: true,
-                message: "Выберите способ оплаты",
-              },
-            ]}
-          >
-            <Radio.Group onChange={onChange} value={value} size="large">
-              <Space>
-                <RadioButton value="murrcoins">Мурркоины €</RadioButton>
-              </Space>
-            </Radio.Group>
-          </Form.Item>
+          </section>
 
-          <Form.Item className={styles.checkout__form__button}>
+          <h3>Способ оплаты</h3>
+          <section aria-label="Способ оплаты">
+            <Form.Item
+              name="paymentMethod"
+              rules={[
+                {
+                  required: true,
+                  message: "Выберите способ оплаты",
+                },
+              ]}
+            >
+              <Radio.Group
+                onChange={onChange}
+                value={value}
+                size="large"
+              >
+                <Space wrap>
+                  <RadioButton value="murrcoins">
+                    Мурркоины €
+                  </RadioButton>
+                </Space>
+              </Radio.Group>
+            </Form.Item>
+          </section>
+
+          <Form.Item
+            className={styles.checkout__form__button}
+          >
             <Button
               disabled={!submittable}
               type="primary"
               htmlType="submit"
-              loading={orderStatus === RequestStatus.Loading}
+              loading={
+                orderStatus === RequestStatus.Loading
+              }
             >
               Оформить заказ
             </Button>
