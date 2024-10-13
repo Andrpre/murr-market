@@ -1,16 +1,14 @@
+import React from "react";
 import { Radio } from "antd";
-import React, { ReactNode } from "react";
+import { RadioButtonProps } from "./type";
 import styles from "./style.module.scss";
 
-export const RadioButton: React.FC<{
-  value: string;
-  children: ReactNode;
-}> = ({ value, children }) => {
+export const RadioButton: React.FC<RadioButtonProps> = ({
+  value,
+  children,
+}) => {
   return (
-    <Radio
-      value={value}
-      className={styles.radio}
-    >
+    <Radio value={value} className={styles.radio}>
       {children}
     </Radio>
   );

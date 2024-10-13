@@ -35,14 +35,18 @@
     border-radius: 20px;
     background: linear-gradient(
       45deg,
-      #bbd7b2,
-      #ffe372,
-      #ff8181,
-      #bbd7b2
+      var(--site-color-3),
+      var(--site-color-2),
+      var(--site-color-1),
+      var(--site-color-3)
     );
-    -webkit-mask: linear-gradient(#fff 0 0) padding-box,
-      linear-gradient(#fff 0 0);
-    mask: linear-gradient(#fff 0 0) padding-box,
-      linear-gradient(#fff 0 0);
+    -webkit-mask: linear-gradient(
+          var(--background-color) 0 0
+        )
+        padding-box,
+      linear-gradient(var(--background-color) 0 0);
+    mask: linear-gradient(var(--background-color) 0 0)
+        padding-box,
+      linear-gradient(var(--background-color) 0 0);
   }
 }
