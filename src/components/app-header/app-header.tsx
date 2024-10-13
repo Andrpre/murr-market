@@ -1,13 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Badge, Button, Flex, Layout } from "antd";
 import { Link, useNavigate } from "react-router-dom";
+import { useWindowScroll } from "react-use";
+import clsx from "clsx";
+
 import { useSelector } from "../../services/hooks";
 import { selectTotalQuantity } from "../../slices/cartSlice";
 import { selectWishlistItems } from "../../slices/wishlistSlice";
+
 import { ReactComponent as FavoriteIcon } from "../../assets/heart.svg";
 import { ReactComponent as LocalMallRoundedIcon } from "../../assets/cart.svg";
 import styles from "./style.module.scss";
-import clsx from "clsx";
 
 const { Header } = Layout;
 
@@ -20,29 +23,17 @@ export const AppHeader: React.FC = () => {
     selectWishlistItems
   );
 
-  const [isScrolled, setIsScrolled] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 50) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
+  const { y } = useWindowScroll();
+  const isScrolled = y > 50;
 
   return (
     <Header
-      className={clsx(styles.header, {
-        [styles.header_scrolled]: isScrolled,
-        [styles.header_top]: !isScrolled,
-      })}
+      className={clsx(
+        styles.header,
+        isScrolled
+          ? styles.header_scrolled
+          : styles.header_top
+      )}
     >
       <Flex
         gap="middle"
@@ -61,12 +52,13 @@ export const AppHeader: React.FC = () => {
             icon={
               <Badge count={totalQuantityWishItem.length}>
                 <FavoriteIcon
-                  className={clsx("icon_size_medium", "icon_hover")}
-                  fill={
+                  className={clsx(
+                    "icon_size_medium",
+                    "icon_hover",
                     isScrolled
-                      ? "var(--main-color)"
-                      : "var(--alternative-text-color)"
-                  }
+                      ? styles.header__icon_scrolled
+                      : styles.header__icon_top
+                  )}
                 />
               </Badge>
             }
@@ -79,12 +71,14 @@ export const AppHeader: React.FC = () => {
             icon={
               <Badge count={totalQuantityCartItem}>
                 <LocalMallRoundedIcon
-                  className={clsx("icon_size_medium", "icon_hover")}
-                  fill={
+                  className={clsx(
+                    "icon_size_medium",
+                    "icon_hover",
                     isScrolled
-                      ? "var(--main-color)"
-                      : "var(--alternative-text-color)"
-                  } />
+                      ? styles.header__icon_scrolled
+                      : styles.header__icon_top
+                  )}
+                />
               </Badge>
             }
           />

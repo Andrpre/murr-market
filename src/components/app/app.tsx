@@ -4,32 +4,34 @@ import {
   Routes,
   Route,
 } from "react-router-dom";
-import styles from "./style.module.scss";
-
-import { myTheme } from "../../styles/my-theme";
-import { ScrollToTop } from "../scroll-to-top";
-import { SuccessPage } from "../../pages/success-page";
 import { HelmetProvider } from "react-helmet-async";
+import { ConfigProvider, Layout } from "antd";
+
 import { useDispatch } from "../../services/hooks";
 import { getProducts } from "../../slices/productsSlice";
-import { ProtectedRoute } from "../protected-route";
 
 import { HomePage } from "../../pages/home-page";
+import { SuccessPage } from "../../pages/success-page";
 import { CartPage } from "../../pages/cart-page";
 import { ProductPage } from "../../pages/product-page/product-page";
 import { AppHeader } from "../app-header";
 import { WishlistPage } from "../../pages/wishlist-page/wishlist-page";
 import { CheckoutPage } from "../../pages/checkout-page";
-import { ConfigProvider, Layout } from "antd";
-import { Content, Footer } from "antd/es/layout/layout";
 import { EmptyView } from "../ui/empty-view";
+import { ScrollToTop } from "../scroll-to-top";
+import { ProtectedRoute } from "../protected-route";
+
+import { myTheme } from "../../styles/my-theme";
+import styles from "./style.module.scss";
+
+const { Content, Footer } = Layout;
 
 const App: React.FC = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getProducts());
-  });
+  }, [dispatch]);
 
   return (
     <HelmetProvider>

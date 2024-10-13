@@ -20,6 +20,14 @@
         transform: scaleX(1);
       }
     }
+
+    @media (width <= 360px) {
+      line-height: normal;
+
+      &::after {
+        top: 5px;
+      }
+    }
   }
 }
 
@@ -46,15 +54,29 @@
       border-radius 0.5s, width 0.5s, margin 0.5s;
     transform: translateY(10px);
     box-shadow: var(--box-shadow);
-    background-color: #ffffff7c;
+    background-color: var(--background-color-scrolled);
     backdrop-filter: blur(20px);
     border-radius: var(--main-radius);
-    width: calc(100% - 20px);
 
     @include hover-logo(var(--main-color));
 
     @media (width <= 758px) {
+      width: calc(100% - 20px);
       margin: 0 0 0 10px;
     }
+  }
+
+  &__icon {
+    &_scrolled {
+      fill: var(--main-color);
+    }
+
+    &_top {
+      fill: var(--alternative-text-color);
+    }
+  }
+
+  @media (width <= 360px) {
+    padding: 20px;
   }
 }
