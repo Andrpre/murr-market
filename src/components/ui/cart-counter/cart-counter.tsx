@@ -1,7 +1,11 @@
-import React from "react";
-import { useDispatch, useSelector } from "../../../services/hooks";
+import React, { useCallback, useMemo } from "react";
 import { Button } from "antd";
-import styles from "./style.module.scss";
+import clsx from "clsx";
+
+import {
+  useDispatch,
+  useSelector,
+} from "../../../services/hooks";
 import {
   addItemToCart,
   removeItemFromCart,
@@ -13,7 +17,7 @@ import { ReactComponent as DeleteIcon } from "../../../assets/delete.svg";
 import { ReactComponent as RemoveIcon } from "../../../assets/minus.svg";
 import { ReactComponent as AddIcon } from "../../../assets/plus.svg";
 import { ReactComponent as CartAddIcon } from "../../../assets/cart.svg";
-import clsx from "clsx";
+import styles from "./style.module.scss";
 
 export const CartCounter: React.FC<{
   product: Product;
@@ -21,26 +25,37 @@ export const CartCounter: React.FC<{
   const dispatch = useDispatch();
   const cartItems = useSelector(selectCartItems);
 
-  const getProductQuantity = () => {
-    const cartItem = cartItems.find((item) => item.id === product.id);
+  const quantity = useMemo(() => {
+    const cartItem = cartItems.find(
+      (item) => item.id === product.id
+    );
     return cartItem ? cartItem.quantity : 0;
-  };
+  }, [cartItems, product.id]);
 
-  const quantity = getProductQuantity();
+  const blockDefault = useCallback(
+    (e: React.MouseEvent) => {
+      e.stopPropagation();
+      e.preventDefault();
+    },
+    []
+  );
 
-  const blockDefault = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    e.preventDefault();
-  };
+  const handleClickAdd = useCallback(
+    (e: React.MouseEvent) => {
+      blockDefault(e);
+      dispatch(addItemToCart(product));
+    },
+    [blockDefault, dispatch, product]
+  );
 
-  const handleClickAdd = (e: React.MouseEvent) => {
-    blockDefault(e);
-    dispatch(addItemToCart(product));
-  };
-  const handleClickRemove = (e: React.MouseEvent) => {
-    blockDefault(e);
-    dispatch(removeItemFromCart(product.id));
-  };
+  const handleClickRemove = useCallback(
+    (e: React.MouseEvent) => {
+      blockDefault(e);
+      dispatch(removeItemFromCart(product.id));
+    },
+    [blockDefault, dispatch, product.id]
+  );
+  
   return (
     <div className={styles.count}>
       {quantity > 0 && (
@@ -64,7 +79,9 @@ export const CartCounter: React.FC<{
               />
             )}
           </Button>
-          <div className={styles.count__quantity}>{quantity}</div>
+          <div className={styles.count__quantity}>
+            {quantity}
+          </div>
         </>
       )}
       <Button
