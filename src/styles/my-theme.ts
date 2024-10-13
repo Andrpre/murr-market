@@ -18,7 +18,6 @@ export const myTheme = {
         paddingInlineLG: 20,
         borderRadiusLG: 20,
         lineWidth: 3,
-        colorPrimaryBg: "#555",
     },
     Radio: {
         dotSize: 10,

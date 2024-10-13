@@ -23,6 +23,10 @@
       display: flex;
       flex-direction: column;
       gap: 5px;
+
+      &_discount {
+        color: var(--important-color);
+      }
     }
   }
 }
