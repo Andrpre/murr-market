@@ -43,11 +43,6 @@
     grid-area: trade-offer;
   }
 
-  &__price {
-    font-size: 18px;
-    font-weight: bold;
-  }
-
   &_row {
     grid-template-columns: 85px 1fr auto;
     grid-template-areas: "image description trade-offer";

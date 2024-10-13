@@ -4,15 +4,16 @@ import styles from "./style.module.scss";
 
 export const WelcomeBlock: React.FC = () => {
   return (
-    <section className={styles.welcome}>
+    <article className={styles.welcome}>
       <div className={styles.welcome__text}>
         <h2>
-          Добро пожаловать в Мурр-маркет — магазин, созданный хвостиками для
-          хвостиков!
+          Добро пожаловать в Мурр-маркет — магазин,
+          созданный хвостиками для хвостиков!
         </h2>
         <h4 className={styles.welcome__text__subtext}>
-          Здесь все, что нужно для комфортной жизни и счастливого мурчания: от
-          мягких подушек до удобных когтеточек!
+          Здесь все, что нужно для комфортной жизни и
+          счастливого мурчания: от мягких подушек до удобных
+          когтеточек!
         </h4>
       </div>
       <img
@@ -20,6 +21,6 @@ export const WelcomeBlock: React.FC = () => {
         src={WelcomeImg}
         alt="Аксессуары для кошки"
       />
-    </section>
+    </article>
   );
 };
