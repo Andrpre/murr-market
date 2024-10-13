@@ -1,26 +1,36 @@
-import React from "react";
-import styles from "./style.module.scss";
-import { ProductTagsProps } from "./type";
+import React, { useMemo } from "react";
 import { v4 as uuidv4 } from "uuid";
+import { ProductTagsProps } from "./type";
+import styles from "./style.module.scss";
 
 export const ProductTags: React.FC<ProductTagsProps> = ({
   product,
   fontSize = 14,
   direction = "column",
 }) => {
-  const isDiscount =
-    product.price.current !== product.price.old &&
-    product.price.old > product.price.current;
+  const isDiscount = useMemo(
+    () =>
+      product.price.current !== product.price.old &&
+      product.price.old > product.price.current,
+    [product.price]
+  );
 
-  let discount: number = 0;
-  if (isDiscount) {
-    discount = Math.trunc(
-      ((product.price.old - product.price.current) / product.price.old) * 100
-    );
-  }
+  const discount = useMemo(() => {
+    if (isDiscount) {
+      return Math.trunc(
+        ((product.price.old - product.price.current) /
+          product.price.old) *
+          100
+      );
+    }
+    return 0;
+  }, [isDiscount, product.price]);
 
   return (
-    <ul className={styles.tags} style={{ flexDirection: direction }}>
+    <ul
+      className={styles.tags}
+      style={{ flexDirection: direction }}
+    >
       {isDiscount && (
         <li
           key={uuidv4()}
@@ -36,7 +46,10 @@ export const ProductTags: React.FC<ProductTagsProps> = ({
       {product.tags.map((tag) => (
         <li
           key={uuidv4()}
-          style={{ backgroundColor: tag.color, fontSize: fontSize }}
+          style={{
+            backgroundColor: tag.color,
+            fontSize: fontSize,
+          }}
           className={styles.tags__item}
         >
           {tag.name}
