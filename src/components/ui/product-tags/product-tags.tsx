@@ -25,7 +25,7 @@ export const ProductTags: React.FC<ProductTagsProps> = ({
         <li
           key={uuidv4()}
           style={{
-            backgroundColor: "var(--bg-color-tag-sale)",
+            backgroundColor: "var(--site-color-1)",
             fontSize: fontSize,
           }}
           className={styles.tags__item}

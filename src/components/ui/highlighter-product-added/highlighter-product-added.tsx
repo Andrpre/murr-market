@@ -1,29 +1,28 @@
-import React, { ReactNode } from "react";
-import { selectCartItems } from "../../../slices/cartSlice";
-import { useSelector } from "../../../services/hooks";
-import styles from "./style.module.scss";
+import React, { useMemo } from "react";
 import clsx from "clsx";
 
-export const HighlighterProductAdded: React.FC<{
-  productId: string;
-  children: ReactNode;
-  hover: boolean;
-}> = ({ productId, children, hover }) => {
+import { selectCartItems } from "../../../slices/cartSlice";
+import { useSelector } from "../../../services/hooks";
+import { HighlighterProductAddedProps } from "./type";
+import styles from "./style.module.scss";
+
+export const HighlighterProductAdded: React.FC<
+  HighlighterProductAddedProps
+> = ({ productId, children, hover }) => {
   const cartItems = useSelector(selectCartItems);
-  const inCart = cartItems.some(
-    (item) => item.id === productId
+  const inCart = useMemo(
+    () => cartItems.some((item) => item.id === productId),
+    [cartItems, productId]
   );
+
   return (
     <div
-      className={clsx(
-        styles.highlighter,
-        inCart
-          ? styles.highlighter__added
-          : [
-              styles.highlighter__notadded,
-              hover && styles.highlighter__notadded_hover,
-            ]
-      )}
+      className={clsx(styles.highlighter, {
+        [styles.highlighter__added]: inCart,
+        [styles.highlighter__notadded]: !inCart,
+        [styles.highlighter__notadded_hover]:
+          !inCart && hover,
+      })}
     >
       {children}
     </div>
