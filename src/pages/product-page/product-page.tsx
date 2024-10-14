@@ -1,27 +1,28 @@
 import React from "react";
-import { BASE_URL } from "../../config";
 import { useParams } from "react-router-dom";
+import { Skeleton, Tabs, TabsProps } from "antd";
+import { Helmet } from "react-helmet-async";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Pagination } from "swiper/modules";
+import "swiper/swiper-bundle.css";
+
+import { BASE_URL } from "../../config";
 import { useSelector } from "../../services/hooks";
 import {
   getStatusRequest,
   selectProductById,
 } from "../../slices/productsSlice";
+import { RequestStatus } from "../../utils/types";
+
 import { CartCounter } from "../../components/ui/cart-counter";
 import { WishlistButton } from "../../components/ui/wishlist-button";
 import { ProductDescription } from "../../components/ui/product-description";
 import { BreadCrumb } from "../../components/ui/bread-crumb";
-import styles from "./style.module.scss";
 import { HighlighterProductAdded } from "../../components/ui/highlighter-product-added";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Pagination } from "swiper/modules";
-import "swiper/swiper-bundle.css";
-import { Skeleton, Tabs, TabsProps } from "antd";
+import { EmptyView } from "../../components/ui/empty-view";
 import { ProductPrice } from "../../components/ui/product-price";
 import { ProductTags } from "../../components/ui/product-tags";
-import { RequestStatus } from "../../utils/types";
-import { v4 as uuidv4 } from "uuid";
-import { EmptyView } from "../../components/ui/empty-view";
-import { Helmet } from "react-helmet-async";
+import styles from "./style.module.scss";
 
 export const ProductPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -42,24 +43,26 @@ export const ProductPage: React.FC = () => {
     product.tags.length !== 0 || product.price.current !== product.price.old;
 
   const descriptionItems: TabsProps["items"] = [
-    {
-      key: "1",
-      label: "Описание",
-      children: <ProductDescription description={product.description.main} />,
-    },
-    {
-      key: "2",
-      label: "Преимущества",
-      children: (
-        <ProductDescription description={product.description.advantages} />
-      ),
-    },
-    {
-      key: "3",
-      label: "Эксплуатация",
-      children: <ProductDescription description={product.description.usage} />,
-    },
-  ];
+      {
+        key: "1",
+        label: "Описание",
+        children: <ProductDescription description={product.description.main} />,
+      },
+      {
+        key: "2",
+        label: "Преимущества",
+        children: (
+          <ProductDescription description={product.description.advantages} />
+        ),
+      },
+      {
+        key: "3",
+        label: "Эксплуатация",
+        children: (
+          <ProductDescription description={product.description.usage} />
+        ),
+      },
+    ];
 
   return (
     <>
@@ -77,27 +80,29 @@ export const ProductPage: React.FC = () => {
           <div className={styles.card__wish}>
             <WishlistButton product={product} />
           </div>
-          <Swiper
-            slidesPerView={1}
-            loop={true}
-            pagination={{
-              clickable: true,
-            }}
-            modules={[Pagination]}
-          >
-            <SwiperSlide key={uuidv4()}>
-              <img
-                src={`${BASE_URL}${product.image.url.main}`}
-                alt={product.name}
-              />
-            </SwiperSlide>
-            {product.image.url.additional.length > 0 &&
-              product.image.url.additional.map((url) => (
-                <SwiperSlide key={uuidv4()}>
-                  <img src={`${BASE_URL}${url}`} alt={product.name} />
-                </SwiperSlide>
-              ))}
-          </Swiper>
+          {product.image.url.main && (
+            <Swiper
+              slidesPerView={1}
+              loop={true}
+              pagination={{
+                clickable: true,
+              }}
+              modules={[Pagination]}
+            >
+              <SwiperSlide key={`main-${product.image.url.main}`}>
+                <img
+                  src={`${BASE_URL}${product.image.url.main}`}
+                  alt={product.name}
+                />
+              </SwiperSlide>
+              {product.image.url.additional.length > 0 &&
+                product.image.url.additional.map((url, index) => (
+                  <SwiperSlide key={`additional-${index}-${url}`}>
+                    <img src={`${BASE_URL}${url}`} alt={product.name} />
+                  </SwiperSlide>
+                ))}
+            </Swiper>
+          )}
         </div>
         <HighlighterProductAdded productId={product.id} hover={false}>
           <div className={styles.card__info}>
