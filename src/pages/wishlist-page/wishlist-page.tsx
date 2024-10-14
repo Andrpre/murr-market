@@ -37,7 +37,9 @@ export const WishlistPage: React.FC = () => {
           button={{ display: true, text: "На главную" }}
         />
       ) : (
-        <section className={styles.products}>{renderedWishlistItems}</section>
+        <section className={styles.products}>
+          {renderedWishlistItems}
+        </section>
       )}
     </>
   );

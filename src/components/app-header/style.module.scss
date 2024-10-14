@@ -2,6 +2,7 @@
   .logo {
     color: $color;
     transition: transform 0.5s;
+    border-radius: 10px;
 
     &::after {
       content: "";
@@ -21,6 +22,10 @@
       }
     }
 
+    &:focus-visible {
+      outline: 3px solid $color;
+    }
+
     @media (width <= 360px) {
       line-height: normal;
 
@@ -28,6 +33,12 @@
         top: 5px;
       }
     }
+  }
+}
+
+@mixin focus-button($color) {
+  .header__button:focus-visible {
+    outline: 3px solid $color;
   }
 }
 
@@ -46,6 +57,7 @@
     border-radius: 0 0 var(--main-radius) var(--main-radius);
     color: var(--alternative-text-color);
 
+    @include focus-button(var(--alternative-text-color));
     @include hover-logo(var(--alternative-text-color));
   }
 
@@ -58,6 +70,7 @@
     backdrop-filter: blur(20px);
     border-radius: var(--main-radius);
 
+    @include focus-button(var(--main-color));
     @include hover-logo(var(--main-color));
 
     @media (width <= 758px) {

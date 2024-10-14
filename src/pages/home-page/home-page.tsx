@@ -3,7 +3,10 @@ import { Skeleton } from "antd";
 import { Helmet } from "react-helmet-async";
 
 import { useSelector } from "../../services/hooks";
-import { getStatusRequest, selectProducts } from "../../slices/productsSlice";
+import {
+  getStatusRequest,
+  selectProducts,
+} from "../../slices/productsSlice";
 import { RequestStatus } from "../../utils/types";
 
 import { ProductCard } from "../../components/product-card";

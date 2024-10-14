@@ -40,11 +40,12 @@ export const AppHeader: React.FC = () => {
         align="center"
         justify="space-between"
       >
-        <Link to="/">
-          <h2 className={styles.logo}>Мурр Маркет</h2>
+        <Link to="/" className={styles.logo}>
+          <h2>Мурр Маркет</h2>
         </Link>
         <Flex gap="middle">
           <Button
+            className={styles.header__button}
             onClick={() => navigate("/wishlist")}
             type="text"
             shape="circle"
@@ -64,6 +65,7 @@ export const AppHeader: React.FC = () => {
             }
           />
           <Button
+            className={styles.header__button}
             onClick={() => navigate("/cart")}
             type="text"
             shape="circle"

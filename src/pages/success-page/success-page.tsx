@@ -7,7 +7,10 @@ import Player from "lottie-react";
 import { BASE_URL } from "../../config";
 import { useSelector } from "../../services/hooks";
 import { selectOrderStatus } from "../../slices/cartSlice";
-import { OrderData, RequestStatus } from "../../utils/types";
+import {
+  OrderData,
+  RequestStatus,
+} from "../../utils/types";
 
 import animationSuccess from "../../assets/lotties/success.json";
 import animationConfetti from "../../assets/lotties/confetti.json";
@@ -19,10 +22,14 @@ export const SuccessPage: React.FC = () => {
   const navigate = useNavigate();
 
   const orderStatus = useSelector(selectOrderStatus);
-  const { orderData } = (location.state as { orderData: OrderData }) || {};
+  const { orderData } =
+    (location.state as { orderData: OrderData }) || {};
 
   useEffect(() => {
-    if (orderStatus !== RequestStatus.Success || !orderData) {
+    if (
+      orderStatus !== RequestStatus.Success ||
+      !orderData
+    ) {
       navigate("/");
     }
 
@@ -69,7 +76,8 @@ export const SuccessPage: React.FC = () => {
             max={{
               count: 3,
               style: {
-                backgroundColor: "var(--secondary-text-color)",
+                backgroundColor:
+                  "var(--secondary-text-color)",
                 boxShadow: "var(--box-shadow-hover)",
                 cursor: "pointer",
               },
@@ -88,7 +96,8 @@ export const SuccessPage: React.FC = () => {
               >
                 <Avatar
                   style={{
-                    backgroundColor: "var(--background-color)",
+                    backgroundColor:
+                      "var(--background-color)",
                     boxShadow: "var(--box-shadow-hover)",
                   }}
                   src={`${BASE_URL}${item.image.url.main}`}
@@ -96,11 +105,17 @@ export const SuccessPage: React.FC = () => {
               </Tooltip>
             ))}
           </Avatar.Group>
-          <b>Заказ на сумму {orderData.totalAmount} мурркоинов</b>
-          <p style={{ color: "var(--secondary-text-color)" }}>
+          <b>
+            Заказ на сумму {orderData.totalAmount}{" "}
+            мурркоинов
+          </b>
+          <p
+            style={{ color: "var(--secondary-text-color)" }}
+          >
             Привезем по адресу: {orderData.address}
             <br />
-            Кожанный все получит, можешь спать спокойно и не париться
+            Кожанный все получит, можешь спать спокойно и не
+            париться
           </p>
         </div>
         <Button

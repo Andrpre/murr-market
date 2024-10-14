@@ -27,10 +27,13 @@ import styles from "./style.module.scss";
 export const ProductPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const productId = String(id);
-  const product = useSelector((state) => selectProductById(state, productId));
+  const product = useSelector((state) =>
+    selectProductById(state, productId)
+  );
   const statusRequest = useSelector(getStatusRequest);
 
-  if (statusRequest === RequestStatus.Loading) return <Skeleton active />;
+  if (statusRequest === RequestStatus.Loading)
+    return <Skeleton active />;
   if (!product) {
     return (
       <EmptyView
@@ -40,29 +43,38 @@ export const ProductPage: React.FC = () => {
     );
   }
   const hasTags =
-    product.tags.length !== 0 || product.price.current !== product.price.old;
+    product.tags.length !== 0 ||
+    product.price.current !== product.price.old;
 
   const descriptionItems: TabsProps["items"] = [
-      {
-        key: "1",
-        label: "Описание",
-        children: <ProductDescription description={product.description.main} />,
-      },
-      {
-        key: "2",
-        label: "Преимущества",
-        children: (
-          <ProductDescription description={product.description.advantages} />
-        ),
-      },
-      {
-        key: "3",
-        label: "Эксплуатация",
-        children: (
-          <ProductDescription description={product.description.usage} />
-        ),
-      },
-    ];
+    {
+      key: "1",
+      label: "Описание",
+      children: (
+        <ProductDescription
+          description={product.description.main}
+        />
+      ),
+    },
+    {
+      key: "2",
+      label: "Преимущества",
+      children: (
+        <ProductDescription
+          description={product.description.advantages}
+        />
+      ),
+    },
+    {
+      key: "3",
+      label: "Эксплуатация",
+      children: (
+        <ProductDescription
+          description={product.description.usage}
+        />
+      ),
+    },
+  ];
 
   return (
     <>
@@ -89,27 +101,45 @@ export const ProductPage: React.FC = () => {
               }}
               modules={[Pagination]}
             >
-              <SwiperSlide key={`main-${product.image.url.main}`}>
+              <SwiperSlide
+                key={`main-${product.image.url.main}`}
+              >
                 <img
                   src={`${BASE_URL}${product.image.url.main}`}
                   alt={product.name}
                 />
               </SwiperSlide>
               {product.image.url.additional.length > 0 &&
-                product.image.url.additional.map((url, index) => (
-                  <SwiperSlide key={`additional-${index}-${url}`}>
-                    <img src={`${BASE_URL}${url}`} alt={product.name} />
-                  </SwiperSlide>
-                ))}
+                product.image.url.additional.map(
+                  (url, index) => (
+                    <SwiperSlide
+                      key={`additional-${index}-${url}`}
+                    >
+                      <img
+                        src={`${BASE_URL}${url}`}
+                        alt={product.name}
+                      />
+                    </SwiperSlide>
+                  )
+                )}
             </Swiper>
           )}
         </div>
-        <HighlighterProductAdded productId={product.id} hover={false}>
+        <HighlighterProductAdded
+          productId={product.id}
+          hover={false}
+        >
           <div className={styles.card__info}>
-            <h2 className={styles["card__info-title"]}>{product.name}</h2>
+            <h2 className={styles["card__info-title"]}>
+              {product.name}
+            </h2>
             <div className={styles["card__info-body"]}>
               {hasTags && (
-                <ProductTags product={product} fontSize={16} direction="row" />
+                <ProductTags
+                  product={product}
+                  fontSize={16}
+                  direction="row"
+                />
               )}
               <Tabs
                 animated={{ inkBar: true, tabPane: true }}
@@ -119,7 +149,10 @@ export const ProductPage: React.FC = () => {
               />
             </div>
             <div className={styles["card__trade-offer"]}>
-              <ProductPrice price={product.price} fontSize={24} />
+              <ProductPrice
+                price={product.price}
+                fontSize={24}
+              />
               <CartCounter product={product} />
             </div>
           </div>

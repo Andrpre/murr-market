@@ -1,5 +1,14 @@
-import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { CartItem, OrderData, Product, RequestStatus } from "../utils/types";
+import {
+  createAsyncThunk,
+  createSlice,
+  PayloadAction,
+} from "@reduxjs/toolkit";
+import {
+  CartItem,
+  OrderData,
+  Product,
+  RequestStatus,
+} from "../utils/types";
 import { submitOrderToFirestore } from "../utils/api";
 
 interface CartState {
@@ -9,8 +18,12 @@ interface CartState {
 }
 
 const initialState: CartState = {
-  items: JSON.parse(localStorage.getItem("cartItems") || "[]"), // Загрузка из localStorage
-  totalAmount: JSON.parse(localStorage.getItem("totalAmount") || "0"), // Загрузка суммы из localStorage
+  items: JSON.parse(
+    localStorage.getItem("cartItems") || "[]"
+  ), // Загрузка из localStorage
+  totalAmount: JSON.parse(
+    localStorage.getItem("totalAmount") || "0"
+  ), // Загрузка суммы из localStorage
   orderStatus: RequestStatus.Idle,
 };
 
@@ -30,22 +43,37 @@ export const cartSlice = createSlice({
   name: "cart",
   initialState,
   reducers: {
-    addItemToCart: (state, action: PayloadAction<Product>) => {
+    addItemToCart: (
+      state,
+      action: PayloadAction<Product>
+    ) => {
       const existingItem = state.items.find(
         (item) => item.id === action.payload.id
       );
       if (existingItem) {
         existingItem.quantity += 1;
       } else {
-        state.items.push({ ...action.payload, quantity: 1 });
+        state.items.push({
+          ...action.payload,
+          quantity: 1,
+        });
       }
       state.totalAmount += action.payload.price.current;
 
       // Сохраняем состояние в localStorage после добавления товара
-      localStorage.setItem("cartItems", JSON.stringify(state.items));
-      localStorage.setItem("totalAmount", JSON.stringify(state.totalAmount));
+      localStorage.setItem(
+        "cartItems",
+        JSON.stringify(state.items)
+      );
+      localStorage.setItem(
+        "totalAmount",
+        JSON.stringify(state.totalAmount)
+      );
     },
-    removeItemFromCart: (state, action: PayloadAction<string>) => {
+    removeItemFromCart: (
+      state,
+      action: PayloadAction<string>
+    ) => {
       const itemIndex = state.items.findIndex(
         (item) => item.id === action.payload
       );
@@ -60,21 +88,36 @@ export const cartSlice = createSlice({
       }
 
       // Сохраняем состояние в localStorage после удаления товара
-      localStorage.setItem("cartItems", JSON.stringify(state.items));
-      localStorage.setItem("totalAmount", JSON.stringify(state.totalAmount));
+      localStorage.setItem(
+        "cartItems",
+        JSON.stringify(state.items)
+      );
+      localStorage.setItem(
+        "totalAmount",
+        JSON.stringify(state.totalAmount)
+      );
     },
   },
   selectors: {
-    selectCartItems: (sliceState: CartState) => sliceState.items,
-    selectTotalAmount: (sliceState: CartState) => sliceState.totalAmount,
+    selectCartItems: (sliceState: CartState) =>
+      sliceState.items,
+    selectTotalAmount: (sliceState: CartState) =>
+      sliceState.totalAmount,
     selectTotalQuantity: (sliceState: CartState) =>
-      sliceState.items.reduce((total, item) => total + item.quantity, 0),
-    selectOrderStatus: (sliceState: CartState) => sliceState.orderStatus,
+      sliceState.items.reduce(
+        (total, item) => total + item.quantity,
+        0
+      ),
+    selectOrderStatus: (sliceState: CartState) =>
+      sliceState.orderStatus,
     selectTotalDiscount: (sliceState: CartState) =>
       sliceState.items.reduce((totalDiscount, item) => {
         if (item.price.old > item.price.current) {
-          const discountPerItem = item.price.old - item.price.current;
-          return totalDiscount + discountPerItem * item.quantity;
+          const discountPerItem =
+            item.price.old - item.price.current;
+          return (
+            totalDiscount + discountPerItem * item.quantity
+          );
         }
         return totalDiscount;
       }, 0),
@@ -98,7 +141,8 @@ export const cartSlice = createSlice({
   },
 });
 
-export const { addItemToCart, removeItemFromCart } = cartSlice.actions;
+export const { addItemToCart, removeItemFromCart } =
+  cartSlice.actions;
 export const {
   selectCartItems,
   selectTotalAmount,

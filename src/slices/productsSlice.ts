@@ -1,4 +1,8 @@
-import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import {
+  createAsyncThunk,
+  createSlice,
+  PayloadAction,
+} from "@reduxjs/toolkit";
 import { Product, RequestStatus } from "../utils/types";
 import { fetchProducts } from "../utils/api";
 
@@ -21,10 +25,17 @@ export const productsSlice = createSlice({
   initialState,
   reducers: {},
   selectors: {
-    selectProducts: (sliceState: ProductsState) => sliceState.products,
-    selectProductById: (sliceState: ProductsState, id: string) =>
-      sliceState.products.find((product) => product.id === id),
-    getStatusRequest: (sliceState: ProductsState) => sliceState.status,
+    selectProducts: (sliceState: ProductsState) =>
+      sliceState.products,
+    selectProductById: (
+      sliceState: ProductsState,
+      id: string
+    ) =>
+      sliceState.products.find(
+        (product) => product.id === id
+      ),
+    getStatusRequest: (sliceState: ProductsState) =>
+      sliceState.status,
   },
   extraReducers: (builder) => {
     builder
@@ -44,5 +55,8 @@ export const productsSlice = createSlice({
   },
 });
 
-export const { selectProducts, selectProductById, getStatusRequest } =
-  productsSlice.selectors;
+export const {
+  selectProducts,
+  selectProductById,
+  getStatusRequest,
+} = productsSlice.selectors;

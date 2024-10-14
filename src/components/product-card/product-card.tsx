@@ -22,32 +22,37 @@ export const ProductCard: React.FC<ProductCardProps> = ({
     product.price.current !== product.price.old;
 
   return (
-    <Link to={`/products/${product.id}`}>
+    <Link
+      to={`/products/${product.id}`}
+      className={styles.product}
+    >
       <article
         className={clsx(
-          styles.product,
-          rowDirection && styles.product_row
+          styles.product__card,
+          rowDirection && styles.product__card_row
         )}
       >
         {!rowDirection && (
-          <div className={styles.product__wish}>
+          <div className={styles.product__card__wish}>
             <WishlistButton product={product} />
           </div>
         )}
         {hasTags && !rowDirection && (
-          <div className={styles.product__tags}>
+          <div className={styles.product__card__tags}>
             <ProductTags product={product} />
           </div>
         )}
         <img
-          className={styles.product__image}
+          className={styles.product__card__image}
           alt={product.name || "Product image"}
           src={`${BASE_URL}${product.image.url.catalog}`}
         />
-        <div className={styles.product__description}>
+        <div className={styles.product__card__description}>
           <h4>{product.name}</h4>
           <Typography.Paragraph
-            className={styles["product__description-text"]}
+            className={
+              styles["product__card__description-text"]
+            }
             style={{ margin: "0" }}
             ellipsis={{
               rows: 2,
@@ -60,7 +65,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
           </Typography.Paragraph>
         </div>
         <Flex
-          className={styles["product__trade-offer"]}
+          className={styles["product__card__trade-offer"]}
           justify="space-between"
           align="center"
         >

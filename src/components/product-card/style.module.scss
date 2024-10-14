@@ -1,70 +1,78 @@
 .product {
-  display: grid;
-  grid-template-areas:
-    "image"
-    "description"
-    "trade-offer";
-  gap: 20px;
-  padding: 20px;
-  position: relative;
-
-  &__wish {
-    position: absolute;
-    right: 15px;
-    top: 15px;
+  &:focus-visible {
+    display: block;
+    border-radius: var(--main-radius);
+    outline: 3px solid var(--main-color);
   }
 
-  &__tags {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-  }
+  &__card {
+    display: grid;
+    grid-template-areas:
+      "image"
+      "description"
+      "trade-offer";
+    gap: 20px;
+    padding: 20px;
+    position: relative;
 
-  &__image {
-    grid-area: image;
-    justify-self: center;
-    width: 100%;
-    max-width: 250px;
-    align-self: center;
-  }
-
-  &__description {
-    grid-area: description;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-
-    &-text {
-      line-height: 1.2;
+    &__wish {
+      position: absolute;
+      right: 15px;
+      top: 15px;
     }
-  }
-
-  &__trade-offer {
-    grid-area: trade-offer;
-  }
-
-  &_row {
-    grid-template-columns: 85px 1fr auto;
-    grid-template-areas: "image description trade-offer";
-    align-items: center;
-    gap: 30px;
-    padding: 20px 30px;
 
     &__tags {
-      position: static;
+      position: absolute;
+      top: 20px;
+      left: 20px;
     }
 
-    .product__trade-offer {
+    &__image {
+      grid-area: image;
+      justify-self: center;
+      width: 100%;
+      max-width: 250px;
+      align-self: center;
+    }
+
+    &__description {
+      grid-area: description;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+
+      &-text {
+        line-height: 1.2;
+      }
+    }
+
+    &__trade-offer {
+      grid-area: trade-offer;
+    }
+
+    &_row {
+      grid-template-columns: 85px 1fr auto;
+      grid-template-areas: "image description trade-offer";
+      align-items: center;
       gap: 30px;
-    }
+      padding: 20px 30px;
 
-    @media (width <= 758px) {
+      &__tags {
+        position: static;
+      }
+
+      .product__card__trade-offer {
+        gap: 30px;
+      }
+
+      @media (width <= 758px) {
         grid-template-columns: 85px 1fr;
         grid-template-areas:
           "image description"
           "trade-offer trade-offer";
         gap: 10px;
         padding: 20px;
+      }
     }
   }
 }
