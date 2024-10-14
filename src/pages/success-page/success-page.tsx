@@ -1,21 +1,25 @@
 import React, { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { Avatar, Button, Tooltip } from "antd";
+import { Helmet } from "react-helmet-async";
+import Player from "lottie-react";
+
 import { BASE_URL } from "../../config";
 import { useSelector } from "../../services/hooks";
 import { selectOrderStatus } from "../../slices/cartSlice";
-import { useLocation, useNavigate } from "react-router-dom";
-import Player from "lottie-react";
+import { OrderData, RequestStatus } from "../../utils/types";
+
 import animationSuccess from "../../assets/lotties/success.json";
 import animationConfetti from "../../assets/lotties/confetti.json";
-import { OrderData, RequestStatus } from "../../utils/types";
 import styles from "./style.module.scss";
-import { Avatar, Button, Tooltip } from "antd";
-import { Helmet } from "react-helmet-async";
 
 export const SuccessPage: React.FC = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const location = useLocation();
-  const orderStatus = useSelector(selectOrderStatus);
   const navigate = useNavigate();
+
+  const orderStatus = useSelector(selectOrderStatus);
+  const { orderData } = (location.state as { orderData: OrderData }) || {};
 
   useEffect(() => {
     if (orderStatus !== RequestStatus.Success || !orderData) {
@@ -27,9 +31,7 @@ export const SuccessPage: React.FC = () => {
     }, 3000);
 
     return () => clearTimeout(delay);
-  });
-
-  const { orderData } = (location.state as { orderData: OrderData }) || {};
+  }, [orderStatus, orderData, navigate]);
 
   return (
     <>
