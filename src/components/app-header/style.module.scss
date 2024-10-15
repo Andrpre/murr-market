@@ -1,0 +1,95 @@
+@mixin hover-logo($color) {
+  .logo {
+    color: $color;
+    transition: transform 0.5s;
+    border-radius: 10px;
+
+    &::after {
+      content: "";
+      outline: 1px $color solid;
+      display: block;
+      position: relative;
+      top: -10px;
+      transform: scaleX(0);
+      transition: transform 0.3s;
+    }
+
+    &:hover {
+      transform: scaleX(0.95);
+
+      &::after {
+        transform: scaleX(1);
+      }
+    }
+
+    &:focus-visible {
+      outline: 3px solid $color;
+    }
+
+    @media (width <= 360px) {
+      line-height: normal;
+
+      &::after {
+        top: 5px;
+      }
+    }
+  }
+}
+
+@mixin focus-button($color) {
+  .header__button:focus-visible {
+    outline: 3px solid $color;
+  }
+}
+
+.header {
+  position: fixed;
+  z-index: 3;
+  max-width: 1200px;
+  width: 100%;
+  padding: 10px 20px;
+  height: auto;
+
+  &_top {
+    transition: background-color 0.5s, transform 0.5s,
+      border-radius 0.5s, width 0.5s, margin 0.5s;
+    background-color: var(--main-color);
+    border-radius: 0 0 var(--main-radius) var(--main-radius);
+    color: var(--alternative-text-color);
+
+    @include focus-button(var(--alternative-text-color));
+    @include hover-logo(var(--alternative-text-color));
+  }
+
+  &_scrolled {
+    transition: background-color 0.5s, transform 0.5s,
+      border-radius 0.5s, width 0.5s, margin 0.5s;
+    transform: translateY(10px);
+    box-shadow: var(--box-shadow);
+    background-color: var(--background-color-scrolled);
+    backdrop-filter: blur(20px);
+    border-radius: var(--main-radius);
+
+    @include focus-button(var(--main-color));
+    @include hover-logo(var(--main-color));
+
+    @media (width <= 758px) {
+      width: calc(100% - 20px);
+      margin: 0 0 0 10px;
+    }
+  }
+
+  &__icon {
+    &_scrolled {
+      fill: var(--main-color);
+    }
+
+    &_top {
+      fill: var(--alternative-text-color);
+    }
+  }
+
+  @media (width <= 360px) {
+    padding: 20px;
+  }
+}

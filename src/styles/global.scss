@@ -1,0 +1,64 @@
+@import url("https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&display=swap");
+
+h1 {
+  font-size: 40px;
+}
+
+h2 {
+  font-size: 30px;
+}
+
+h3 {
+  font-size: 20px;
+}
+
+h4 {
+  font-size: 16px;
+}
+
+.icon {
+  &_size_small {
+    width: 20px;
+  }
+
+  &_size_medium {
+    width: 35px;
+  }
+
+  &_hover {
+    transition: transform 0.3s;
+
+    &:hover {
+      transform: scale(1.2);
+    }
+  }
+}
+
+.ant-form-item {
+  margin-bottom: 0; // Убираем нижний отступ для всех элементов формы
+}
+
+/* Стиль для каждой точки пагинации */
+.swiper-pagination-bullet {
+  transition: transform 0.5s;
+}
+
+/* Стиль для активной точки пагинации */
+.swiper-pagination-bullet-active {
+  background-color: var(--main-color) !important;
+  transform: scale(1.2) !important;
+}
+
+@media (width <= 758px) {
+  h1 {
+    font-size: 30px;
+  }
+
+  h2 {
+    font-size: 20px;
+  }
+
+  h3 {
+    font-size: 18px;
+  }
+}

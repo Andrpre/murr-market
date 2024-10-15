@@ -1,0 +1,32 @@
+.checkout {
+  &__form {
+    display: grid;
+    gap: 30px;
+
+    &__button {
+      justify-self: end;
+    }
+  }
+
+  &__inputs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+  }
+
+  @media (width <= 758px) {
+    &__form__button {
+      width: 100%;
+
+      button {
+        width: 100%;
+      }
+    }
+
+    &__inputs {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+  }
+}

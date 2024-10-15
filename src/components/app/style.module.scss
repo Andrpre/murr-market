@@ -1,0 +1,30 @@
+body {
+  font-size: var(--text-size);
+  font-family: "Comfortaa", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+}
+
+.layout {
+  max-width: 1200px;
+  min-height: 100vh;
+  margin: auto;
+  background-color: transparent;
+}
+
+.content {
+  margin-top: 114px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+
+  @media (width <= 758px) {
+    margin: 114px 10px 0;
+  }
+}
+
+.footer {
+  border-radius: var(--main-radius) var(--main-radius) 0 0;
+  margin-top: 30px;
+  text-align: center;
+}

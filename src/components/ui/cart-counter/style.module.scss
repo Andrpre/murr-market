@@ -1,0 +1,47 @@
+@mixin button-color($background-color, $color) {
+  transition: transform 0.3s;
+  background-color: $background-color;
+  color: $color;
+  box-shadow: none;
+  border: none;
+
+  &:hover {
+    color: $color !important;
+    background-color: $background-color !important;
+    transform: scale(1.1);
+  }
+}
+
+.count {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+
+  &__button {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    padding: 0;
+
+    &-decrement {
+      @include button-color(
+        var(--secondary-color),
+        var(--main-text-color)
+      );
+    }
+
+    &-increment {
+      @include button-color(
+        var(--main-color),
+        var(--alternative-text-color)
+      );
+    }
+  }
+
+  &__quantity {
+    text-align: center;
+    min-width: 24px;
+    font-size: 18px;
+    font-weight: bold;
+  }
+}

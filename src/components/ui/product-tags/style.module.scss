@@ -1,0 +1,13 @@
+.tags {
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 5px;
+
+  &__item {
+    padding: 5px 12px 3px;
+    border-radius: 8px;
+    font-weight: bold;
+    box-shadow: var(--box-shadow);
+  }
+}
