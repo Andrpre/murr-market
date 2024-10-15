@@ -28,7 +28,7 @@ Murr Market — это онлайн-магазин для котиков. Осн
 - **Оформление заказа**: реализация формы с валидацией и выбором способа оплаты с использованием виртуальных мурркоинов.
 - **Анимация успеха**: приятные визуальные эффекты после успешного оформления заказа.
 
-![preview](https://andrpre.ru/projects/murr-market/preview.png)
+![preview]()
 
 [**Демонстрация проекта**](https://andrpre.ru/projects/murr-market/)
 
@@ -74,5 +74,5 @@ Murr Market — это онлайн-магазин для котиков. Осн
 
 ## Авторы
 
-- Разработка и дизайн (UX/UI) — [Andrpre](https://github.com/Andrpre)
+- Разработка и дизайн (UX/UI) — [Andrpre](https://t.me/Andrpre)
 - Идея и графический дизайн — [artvall_e](https://t.me/artvall_e)
